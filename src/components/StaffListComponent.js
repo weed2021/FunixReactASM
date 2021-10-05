@@ -9,17 +9,16 @@
             this.state = {
                 selectedStaff: null,
                 dropdownOpen: false,
-                setOpen:false,
                 classColStaff :"col-sm-12 col-md-6 col-lg-4 p-4",
                 size:"lg",
                 
             }
 
             // This binding is necessary to make `this` work in the callback
-            this.handleClickDefault = this.handleClickDefault.bind(this);
-            this.handleClick2 = this.handleClick2.bind(this);
-            this.handleClick3 = this.handleClick3.bind(this);
-            this.handleClick4 = this.handleClick4.bind(this);
+            // this.handleClickDefault = this.handleClickDefault.bind(this);
+            // this.handleClick2 = this.handleClick2.bind(this);
+            // this.handleClick3 = this.handleClick3.bind(this);
+            // this.handleClick4 = this.handleClick4.bind(this);
         }
 
         onStaffSelect(staff){
@@ -31,7 +30,7 @@
                 return(
                     <div className="col-md 12 px-0"  >
                         <Card>
-                            <CardHeader className="text-white bg-info" tag="h6">{staff.name}</CardHeader>
+                            <CardHeader className="text-white bg-info" tag="h5">{staff.name}</CardHeader>
                             <CardBody>
                                 <Table borderless hover>
                                     <tbody>
@@ -87,7 +86,6 @@
         }
 
         render(){
-            // let classColStaff = 'col-sm-12 col-md-6 col-lg-4 p-4';
             const staffs = this.props.staffs.map((staff)=>{
                 if (staff.id<=5){
                     return(
@@ -117,13 +115,13 @@
                                 Chia cột
                             </DropdownToggle>
                             <DropdownMenu>
-                                <DropdownItem onClick={this.handleClickDefault}>Reset</DropdownItem>
+                                <DropdownItem onClick={()=>this.handleClickDefault()}>Reset</DropdownItem>
                                 <DropdownItem divider />
-                                <DropdownItem onClick={this.handleClick2}>2</DropdownItem>
+                                <DropdownItem onClick={()=>this.handleClick2()}>2</DropdownItem>
                                 <DropdownItem divider />
-                                <DropdownItem onClick={this.handleClick3}>3</DropdownItem>
+                                <DropdownItem onClick={()=>this.handleClick3()}>3</DropdownItem>
                                 <DropdownItem divider />
-                                <DropdownItem onClick={this.handleClick4}>4</DropdownItem>
+                                <DropdownItem onClick={()=>this.handleClick4()}>4</DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
                     </div>
