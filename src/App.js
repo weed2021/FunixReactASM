@@ -15,7 +15,7 @@ class App extends Component{
   render(){
     return (
       <div >
-        <Navbar dark color="secondary" >
+        <Navbar dark color="info" >
           <div className="container">
               <NavbarBrand>HR Managerment App</NavbarBrand>
           </div>
@@ -25,12 +25,5 @@ class App extends Component{
     );
   }
 }
-// function App() {
-//   return (
-//     <div className="App">
-//       <StaffList />
-//     </div>
-//   );
-// }
 
 export default App;

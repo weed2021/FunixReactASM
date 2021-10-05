@@ -1,5 +1,5 @@
 import React,{Component} from "react";
-import {Card, Button, CardHeader, CardFooter, CardBody,
+import {Card, Button, CardHeader, Table, CardBody,
     CardTitle, CardText} from "reactstrap";
 import dateFormat from "dateformat";
 
@@ -17,28 +17,45 @@ class StaffList extends Component{
     }
 
     renderStaff(staff,DEPARTMENTS){
-        // const DEPARTMENTS = DEPARTMENTS;
         if(staff!=null){
             return(
-                <Card>
-                    <CardHeader tag="h6">{staff.name}</CardHeader>
-                    <CardBody>
-                        <CardTitle >Phòng Ban:{' '}{staff.department.name}</CardTitle>
-                        <CardText> Ngày sinh: {' '}
-                            {dateFormat(staff.doB,"paddedShortDate")}
-                        </CardText>
-                        <CardText> Ngày vào công ty: {' '}
-                            {dateFormat(staff.startDate,"paddedShortDate")}
-                        </CardText>
-                        <CardText> Ngày nghỉ còn lại: {' '}
-                            {staff.annualLeave}
-                        </CardText>
-                        <CardText> Ngày làm thêm giờ: {' '}
-                            {staff.overTime}
-                        </CardText>
-
-                    </CardBody>
-                </Card>
+                <div className="col-md 12 px-0"  >
+                    <Card>
+                        <CardHeader className="text-white bg-info" tag="h6">{staff.name}</CardHeader>
+                        <CardBody>
+                            <Table borderless hover>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Phòng Ban</th>
+                                        <td>{staff.department.name}</td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Ngày sinh</th>
+                                        <td>{dateFormat(staff.doB,"paddedShortDate")}</td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Ngày vào công ty</th>
+                                        <td>{dateFormat(staff.startDate,"paddedShortDate")}</td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Ngày nghỉ còn lại</th>
+                                        <td>{staff.annualLeave}</td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Ngày làm thêm giờ</th>
+                                        <td>{staff.overTime}</td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </Table>
+                        </CardBody>
+                    </Card>
+                    
+                </div>   
             );
         }else{
             return(
@@ -52,22 +69,28 @@ class StaffList extends Component{
             if (staff.id<=5){
                 return(
                     <div key={staff.id} className="col-sm-12 col-md-6 col-lg-4 p-4">
-                        <Button onClick={()=>this.onStaffSelect(staff)} className="btn-block" color="info">{staff.name}</Button>
+                        <Button size="lg" onClick={()=>this.onStaffSelect(staff)} className="btn-block" color="danger ">{staff.name}</Button>
                     </div>
-                );
-            }else{
-                return(
-                    <div></div>
                 );
             }
             
         })
         return(
             <div className = "container">
-                <div className="row">
-                    {staffs}
+                <div>
+                    <br></br>
                 </div>
-                <div className="row">
+                <div dark className="row alert alert-info" >
+                    {staffs}
+
+                </div>
+                <div dark className="row">
+                    <div class="alert alert-info col-md-12 p-4" role="alert">
+                            Bấm vào tên nhân viên để xem chi tiết!
+                    </div>
+                </div>
+                
+                <div className="row alert-info" >
                     {this.renderStaff(this.state.selectedStaff,this.props.departments)}
                 </div>
                 
