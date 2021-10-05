@@ -114,7 +114,7 @@
                             <DropdownToggle color="info" caret>
                                 Chia cột
                             </DropdownToggle>
-                            <DropdownMenu>
+                            <DropdownMenu >
                                 <DropdownItem onClick={()=>this.handleClickDefault()}>Reset</DropdownItem>
                                 <DropdownItem divider />
                                 <DropdownItem onClick={()=>this.handleClick2()}>2</DropdownItem>
