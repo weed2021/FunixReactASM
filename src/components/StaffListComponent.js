@@ -13,7 +13,6 @@
                 size:"lg",
                 
             }
-
             // This binding is necessary to make `this` work in the callback
             // this.handleClickDefault = this.handleClickDefault.bind(this);
             // this.handleClick2 = this.handleClick2.bind(this);
@@ -93,12 +92,8 @@
                             <Button size={this.state.size} onClick={()=>this.onStaffSelect(staff)} className="btn-block" color="danger ">{staff.name}</Button>
                         </div>
                     );
-                
-
-                }
-                
-            )
-            
+                }   
+            )       
 
             const toggle = () => this.setState({dropdownOpen: !this.state.dropdownOpen});
             return(
