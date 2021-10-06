@@ -87,20 +87,17 @@
 
         render(){
             const staffs = this.props.staffs.map((staff)=>{
-                if (staff.id<=5){
+                
                     return(
                         <div key={staff.id} className={this.state.classColStaff}>
                             <Button size={this.state.size} onClick={()=>this.onStaffSelect(staff)} className="btn-block" color="danger ">{staff.name}</Button>
                         </div>
                     );
-                }else{
-                    return(
-                        null
-                    );
+                
 
                 }
                 
-            })
+            )
             
 
             const toggle = () => this.setState({dropdownOpen: !this.state.dropdownOpen});
