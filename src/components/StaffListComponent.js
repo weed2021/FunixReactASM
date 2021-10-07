@@ -1,5 +1,6 @@
     import React,{Component} from "react";
-    import {Dropdown,DropdownToggle ,DropdownMenu,DropdownItem, Card, Button, CardHeader, Table, CardBody} from "reactstrap";
+    import {Dropdown,DropdownToggle,Table ,DropdownMenu,DropdownItem, Card, Button, CardHeader, CardImg, CardBody,
+        CardTitle} from "reactstrap";
     import dateFormat from "dateformat";
 
 
@@ -88,9 +89,19 @@
             const staffs = this.props.staffs.map((staff)=>{
                 
                     return(
-                        <div key={staff.id} className={this.state.classColStaff}>
-                            <Button size={this.state.size} onClick={()=>this.onStaffSelect(staff)} className="btn-block" color="danger ">{staff.name}</Button>
+                        <div  key={staff.id} className={this.state.classColStaff}>
+                            <Card size={this.state.size}>
+                            <CardImg top width="100%" src={staff.image} alt="Card image cap" />
+                            <CardBody>
+                               
+                                <Button onClick={()=>this.onStaffSelect(staff)} className="btn-block">{staff.name}</Button>
+                            </CardBody>
+                            </Card>
+                            {/* <div key={staff.id} className={this.state.classColStaff}>
+                                <Button size={this.state.size} onClick={()=>this.onStaffSelect(staff)} className="btn-block" color="danger ">{staff.name}</Button>
+                            </div> */}
                         </div>
+                        
                     );
                 }   
             )       

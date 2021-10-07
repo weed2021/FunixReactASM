@@ -3,6 +3,9 @@ import {Navbar, NavbarBrand} from "reactstrap";
 import './App.css';
 import StaffList from './components/StaffListComponent';
 import {STAFFS,DEPARTMENTS} from './shared/staffs'
+import Header from './components/HeaderComponent';
+import Footer from './components/FooterComponent';
+import { BrowserRouter} from 'react-router-dom';
 
 class App extends Component{
   constructor(props){
@@ -14,13 +17,12 @@ class App extends Component{
   }
   render(){
     return (
-      <div >
-        <Navbar dark color="info" >
-          <div className="container">
-              <NavbarBrand>HR Managerment App</NavbarBrand>
-          </div>
-        </Navbar>
-        <StaffList departments={this.state.departments} staffs={this.state.staffs} />
+      <div>
+        <BrowserRouter>
+          <Header />
+          <StaffList departments={this.state.departments} staffs={this.state.staffs} />
+          <Footer />
+        </BrowserRouter>
       </div>
     );
   }

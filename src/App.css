@@ -1,3 +1,12 @@
-*{
+body{
     font-family: Montserrat!important;
 }
+
+@media (max-width:767px){
+    .divider {
+          height: 1.1px;
+          margin: 9px 0;
+          overflow: hidden;
+          background-color: #e5e5e5;
+      }
+  }
