@@ -56,7 +56,7 @@ function RenderStaff({staff,DEPARTMENTS}){
 
 const StaffDetail = (pros) => {
     return(
-        <div className='alert-info pt-4' style={{padding:'2vw'}}>
+        <div className='alert-info' style={{padding:'2vw'}}>
             <div className="row " >
                 <RenderStaff staff={pros.staff} DEPARTMENTS={pros.departments} />
             </div>

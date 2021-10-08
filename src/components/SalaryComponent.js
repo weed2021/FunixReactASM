@@ -29,7 +29,18 @@ function RenderSalaryTable({staffs}){
                             </tbody>
                         </Table>
                     </CardBody>
-                    <CardFooter>{salary}</CardFooter>
+                    <CardFooter>
+                        <Table borderless>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Lương</th>
+                                    <td>
+                                        <i class="fa fa-money" aria-hidden="true"></i> {salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} {<sup>đ</sup>}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </Table>
+                    </CardFooter>
                 </Card>
             </div>
         );
