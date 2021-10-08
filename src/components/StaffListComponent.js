@@ -1,6 +1,6 @@
     import React,{Component} from "react";
 import { Link } from "react-router-dom";
-    import {Card, Button, CardImg, CardBody} from "reactstrap";
+    import {Card, Button, CardImg, CardBody,CardHeader} from "reactstrap";
     import StaffDetail from "./StaffDetailComponent";
 
 
@@ -28,15 +28,12 @@ import { Link } from "react-router-dom";
             const staffs = this.props.staffs.map((staff)=>{
                     return(
                         <div  key={staff.id} className="col-6 col-md-4 col-lg-2 p-2">
-                            <Card size='lg'>
-                            <CardImg top width="100%" src={staff.image} alt="Card image cap" />
-                            <CardBody>
-                                <Link to={`/staff/${staff.id}`}> 
-                                <Button className="btn-block">{staff.name}</Button>
-                                </Link>
-                                
-                            </CardBody>
-                            </Card>
+                            <Link to={`/staff/${staff.id}`}>
+                                <Card size='lg'>
+                                    <CardImg top width="100%" src={staff.image} alt={staff.name} />
+                                    <CardHeader className='text-center bg-info'>{staff.name}</CardHeader>
+                                </Card>
+                            </Link>
                         </div> 
                     );
                 }   
@@ -44,7 +41,7 @@ import { Link } from "react-router-dom";
 
             
             return(
-                <div className = "container-fluid alert alert-info px-5">
+                <div style={{padding:'3vw'}}>
                     <div className="row pt-5" >
                         <div className='col-12'>
                             <h3 className='text-center font-weight-bold'>DANH SÁCH NHÂN VIÊN</h3> 
@@ -54,13 +51,11 @@ import { Link } from "react-router-dom";
 
                     
 
-                    <div className="row pt-3" >
+                    <div className="row pt-4" >
                             {staffs} 
                     </div>
                     
-                    <div className="row alert-info" >
-                        <StaffDetail staff={this.state.selectedStaff} departments={this.props.departments}/>
-                    </div>
+                    
                     
                 </div>
                 

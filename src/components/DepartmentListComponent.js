@@ -23,7 +23,7 @@ function RenderDeparment({departments}){
     })
 
     return (
-        <div className="row">
+        <div className="row " style={{padding:'2vw'}}>
             {_departments}
         </div>
     );
