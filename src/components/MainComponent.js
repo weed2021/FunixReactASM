@@ -6,6 +6,7 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Salary from './SalaryComponent';
 import DepartmentList from './DepartmentListComponent';
+import StaffDetail from "./StaffDetailComponent";
 import { BrowserRouter, Switch,Route,Redirect} from 'react-router-dom';
 
 class Main extends Component{
@@ -16,23 +17,34 @@ class Main extends Component{
       departments:DEPARTMENTS
     };
   }
+
+  
+
   render(){
+    const StaffWithId = ({match})=>{
+      return (
+        <StaffDetail 
+          staff={this.state.staffs.filter((staff)=>staff.id===parseInt(match.params.staffId,10))[0]} 
+          departments={this.state.departments}
+        />
+  
+      );
+    }
     return (
       <div>
-        {/* <DepartmentList departments={this.state.departments} /> */}
-        
         <BrowserRouter>
           <Header />
           <Switch> 
-            <Route path='/staff' component={()=> <StaffList departments={this.state.departments} staffs={this.state.staffs} />} />
+            <Route exact path='/staff' component={()=> <StaffList departments={this.state.departments} staffs={this.state.staffs} />} />
             <Route path='/salary' component={()=> <Salary staffs = {this.state.staffs} />} />
+            <Route path='/staff/:staffId' component={StaffWithId} />
             <Route path='/department' component={()=> <DepartmentList departments={this.state.departments}  />} />
             <Redirect to='/staff' />
+
           </Switch>
-          {/* <StaffList departments={this.state.departments} staffs={this.state.staffs} /> */}
           <Footer />
         </BrowserRouter>
-        {/* <Salary staffs = {this.state.staffs}/> */}
+        
       </div>
     );
   }

@@ -1,4 +1,5 @@
     import React,{Component} from "react";
+import { Link } from "react-router-dom";
     import {Card, Button, CardImg, CardBody} from "reactstrap";
     import StaffDetail from "./StaffDetailComponent";
 
@@ -30,8 +31,10 @@
                             <Card size='lg'>
                             <CardImg top width="100%" src={staff.image} alt="Card image cap" />
                             <CardBody>
+                                <Link to={`/staff/${staff.id}`}> 
+                                <Button className="btn-block">{staff.name}</Button>
+                                </Link>
                                 
-                                <Button onClick={()=>this.onStaffSelect(staff)} className="btn-block">{staff.name}</Button>
                             </CardBody>
                             </Card>
                         </div> 
