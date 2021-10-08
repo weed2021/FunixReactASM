@@ -6,7 +6,7 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Salary from './SalaryComponent';
 import DepartmentList from './DepartmentListComponent';
-import { BrowserRouter} from 'react-router-dom';
+import { BrowserRouter, Switch,Route,Redirect} from 'react-router-dom';
 
 class Main extends Component{
   constructor(props){
@@ -19,13 +19,20 @@ class Main extends Component{
   render(){
     return (
       <div>
-        <DepartmentList departments={this.state.departments} />
+        {/* <DepartmentList departments={this.state.departments} /> */}
+        
         <BrowserRouter>
           <Header />
-          <StaffList departments={this.state.departments} staffs={this.state.staffs} />
+          <Switch> 
+            <Route path='/staff' component={()=> <StaffList departments={this.state.departments} staffs={this.state.staffs} />} />
+            <Route path='/salary' component={()=> <Salary staffs = {this.state.staffs} />} />
+            <Route path='/department' component={()=> <DepartmentList departments={this.state.departments}  />} />
+            <Redirect to='/staff' />
+          </Switch>
+          {/* <StaffList departments={this.state.departments} staffs={this.state.staffs} /> */}
           <Footer />
         </BrowserRouter>
-        <Salary staffs = {this.state.staffs}/>
+        {/* <Salary staffs = {this.state.staffs}/> */}
       </div>
     );
   }

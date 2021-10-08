@@ -1,6 +1,5 @@
     import React,{Component} from "react";
-    import {Table , Card, Button, CardHeader, CardImg, CardBody} from "reactstrap";
-    import dateFormat from "dateformat";
+    import {Card, Button, CardImg, CardBody} from "reactstrap";
     import StaffDetail from "./StaffDetailComponent";
 
 
@@ -9,10 +8,7 @@
             super(props);
             this.state = {
                 selectedStaff: null,
-                dropdownOpen: false,
-                // classColStaff :"col-6 col-md-4 col-lg-2 p-4",
-                // size:"lg",
-                
+                dropdownOpen: false       
             }
             // This binding is necessary to make `this` work in the callback
             // this.handleClickDefault = this.handleClickDefault.bind(this);
@@ -29,7 +25,6 @@
 
         render(){
             const staffs = this.props.staffs.map((staff)=>{
-                
                     return(
                         <div  key={staff.id} className="col-6 col-md-4 col-lg-2 p-2">
                             <Card size='lg'>
@@ -39,8 +34,7 @@
                                 <Button onClick={()=>this.onStaffSelect(staff)} className="btn-block">{staff.name}</Button>
                             </CardBody>
                             </Card>
-                        </div>
-                        
+                        </div> 
                     );
                 }   
             )       
@@ -52,8 +46,7 @@
                         <div className='col-12'>
                             <h3 className='text-center font-weight-bold'>DANH SÁCH NHÂN VIÊN</h3> 
                             <hr />
-                        </div>
-                            
+                        </div> 
                     </div>
 
                     
