@@ -1,6 +1,7 @@
 import React from "react";
-import {Table , Card ,  CardHeader,  CardBody, CardImg} from "reactstrap";
+import {Table , Card ,  CardHeader,  CardBody, CardImg, Breadcrumb, BreadcrumbItem} from "reactstrap";
 import dateFormat from "dateformat";
+import { Link } from "react-router-dom";
 
 function RenderStaff({staff,DEPARTMENTS}){
     if(staff == null){
@@ -58,6 +59,10 @@ const StaffDetail = (pros) => {
     return(
         <div className='alert-info' style={{padding:'2vw'}}>
             <div className="row " >
+                <Breadcrumb className='col-md-12'>   
+                    <BreadcrumbItem><Link to='/'><b>Nhân viên</b></Link></BreadcrumbItem>
+                    <BreadcrumbItem active><b>{pros.staff.name}</b></BreadcrumbItem>
+                </Breadcrumb>
                 <RenderStaff staff={pros.staff} DEPARTMENTS={pros.departments} />
             </div>
         </div>

@@ -1,5 +1,6 @@
 import React from "react";
-import { Card, CardHeader, CardBody, Table } from 'reactstrap';
+import { Card, CardHeader, CardBody, Table, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Link } from "react-router-dom";
 
 function RenderDeparment({departments}){
     const _departments = departments.map((department)=>{
@@ -21,10 +22,17 @@ function RenderDeparment({departments}){
             </div>
         );
     })
-    
+
     return (
         <div className="row " style={{padding:'2vw'}}>
+
+            <Breadcrumb className='col-md-12'>   
+                <BreadcrumbItem><Link to='/'><b>Trang chủ</b></Link></BreadcrumbItem>
+                <BreadcrumbItem active><b>Phòng ban</b></BreadcrumbItem>
+            </Breadcrumb>
+
             {_departments}
+            
         </div>
     );
 }

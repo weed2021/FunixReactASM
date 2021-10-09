@@ -21,7 +21,7 @@ class Header extends Component{
             <Navbar dark className='navbar-light' style={{backgroundColor: "#17a2b8"}}   expand="md">
                 <div className='container'>
                     <NavbarBrand className='mr-auto' href="/">
-                        <img src="/assets/images/logo.png" />
+                        <img src="/assets/images/logo.png" alt='staff logo' />
                     
                     </NavbarBrand>
                 

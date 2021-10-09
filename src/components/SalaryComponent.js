@@ -1,11 +1,12 @@
 import React from "react";
-import { Card, CardHeader, CardFooter, CardBody, Table } from 'reactstrap';
+import { Card, CardHeader, CardFooter, CardBody, Table, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Link } from "react-router-dom";
 
-function RenderSalaryTable({staffs}){
+function RenderSalaryTable({ staffs }) {
 
-    const employees = staffs.map((staff)=>{
-        
-        const salary= parseInt((staff.salaryScale * 3000000) + (staff.overTime * 200000));
+    const employees = staffs.map((staff) => {
+
+        const salary = parseInt((staff.salaryScale * 3000000) + (staff.overTime * 200000));
 
         return (
             <div key={staff.id} className="col-2 col-md-2 col-lg-4 p-4">
@@ -35,7 +36,7 @@ function RenderSalaryTable({staffs}){
                                 <tr>
                                     <th scope="row">Lương</th>
                                     <td>
-                                        <i class="fa fa-money" aria-hidden="true"></i> {salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} {<sup>đ</sup>}
+                                        <i className="fa fa-money" aria-hidden="true"></i> {salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} {<sup>đ</sup>}
                                     </td>
                                 </tr>
                             </tbody>
@@ -47,19 +48,24 @@ function RenderSalaryTable({staffs}){
     })
     return (
         <div className="row">
+            <Breadcrumb className='col-md-12'>   
+                <BreadcrumbItem><Link to='/'><b>Trang chủ</b></Link></BreadcrumbItem>
+                <BreadcrumbItem active><b>Lương</b></BreadcrumbItem>
+            </Breadcrumb>
+            
             {employees}
         </div>
     );
 }
 
-const Salary =(pros) => {
-    return(
-        <div className= "container">
-            
-                <RenderSalaryTable staffs={pros.staffs} />
-            
+const Salary = (pros) => {
+    return (
+        <div className="container">
+
+            <RenderSalaryTable staffs={pros.staffs} />
+
         </div>
-        
+
     );
 }
 
