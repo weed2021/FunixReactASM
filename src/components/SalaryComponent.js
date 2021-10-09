@@ -1,15 +1,16 @@
-import React from "react";
-import { Card, CardHeader, CardFooter, CardBody, Table, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import React, { useState } from "react";
+import { Card, CardHeader, CardFooter, CardBody, Table, Breadcrumb, BreadcrumbItem, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Link } from "react-router-dom";
+// import Button from "@restart/ui/esm/Button";
+
 
 function RenderSalaryTable({ staffs }) {
 
     const employees = staffs.map((staff) => {
-
         const salary = parseInt((staff.salaryScale * 3000000) + (staff.overTime * 200000));
 
         return (
-            <div key={staff.id} className="col-2 col-md-2 col-lg-4 p-4">
+            <div key={staff.id} className="col-12 col-sm-6 col-md-4  p-4">
                 <Card>
                     <CardHeader>{staff.name}</CardHeader>
                     <CardBody>
@@ -46,27 +47,73 @@ function RenderSalaryTable({ staffs }) {
             </div>
         );
     })
+
+    
+    
+
+    // const [orderId,setOrderId] = useState(staffs)
+
+    // const decendingSalary = [...staffs];
+    // decendingSalary.sort((a,b)=>{return parseInt(b.id) - parseInt(a.id);})
+    // console.log(orderId)
     return (
-        <div className="row">
-            <Breadcrumb className='col-md-12'>   
-                <BreadcrumbItem><Link to='/'><b>Trang chủ</b></Link></BreadcrumbItem>
-                <BreadcrumbItem active><b>Lương</b></BreadcrumbItem>
-            </Breadcrumb>
+        <React.Fragment>
             
-            {employees}
-        </div>
+            {/* <div className="row" style={{ padding: '0 3vw' }}>
+                <Dropdown className="ml-auto"  isOpen={dropdownOpen} toggle={toggle}>
+                    <DropdownToggle color='info' caret>
+                        Mức lương
+                    </DropdownToggle>
+                    <DropdownMenu>
+                        <DropdownItem >Tăng dần</DropdownItem>
+                        <DropdownItem divider/>
+                        <DropdownItem onClick={()=><RenderSalaryTable staffs ={orderId}/>}>Giảm dần</DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
+
+            </div> */}
+            <div className="row" style={{ padding: '0 2vw' }}>
+                {employees}
+            </div>
+
+
+
+        </React.Fragment>
+
     );
 }
 
+
 const Salary = (pros) => {
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const toggle = () => setDropdownOpen(prevState => !prevState);
+    
     return (
-        <div className="container">
+        
+        <React.Fragment>
+            <div className="row" >
+                <Breadcrumb className='col-md-12' style={{ padding: '2vw 3vw 0 3vw' }}>
+                    <BreadcrumbItem><Link to='/'><b>Trang chủ</b></Link></BreadcrumbItem>
+                    <BreadcrumbItem active><b>Lương</b></BreadcrumbItem>
+                </Breadcrumb>
+            </div>
 
+            <div className="row" style={{ padding: '0 3vw' }}>
+                <Dropdown className="ml-auto"  isOpen={dropdownOpen} toggle={toggle}>
+                    <DropdownToggle color='info' caret>
+                        Mã nhân viên
+                    </DropdownToggle>
+                    <DropdownMenu>
+                        <DropdownItem onClick={()=><RenderSalaryTable staffs ={pros.staffs.sort((a,b)=>{return parseInt(a.id) - parseInt(b.id);})}/>}>Tăng dần</DropdownItem>
+                        <DropdownItem divider/>
+                        <DropdownItem onClick={()=><RenderSalaryTable staffs ={pros.staffs.sort((a,b)=>{return parseInt(b.id) - parseInt(a.id);})}/>}>Giảm dần</DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
+            </div>
             <RenderSalaryTable staffs={pros.staffs} />
-
-        </div>
-
+        </React.Fragment>
     );
+    
 }
 
 export default Salary;

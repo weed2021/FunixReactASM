@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import {Navbar, NavbarBrand, Nav,NavbarToggler,Collapse,NavItem} from 'reactstrap';
-import {NavLink} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
+import { LinkContainer } from "react-router-bootstrap";
 
 class Header extends Component{
     constructor(props){
@@ -20,10 +21,12 @@ class Header extends Component{
         return(
             <Navbar dark className='navbar-light' style={{backgroundColor: "#17a2b8"}}   expand="md">
                 <div className='container'>
-                    <NavbarBrand className='mr-auto' href="/">
-                        <img src="/assets/images/logo.png" alt='staff logo' />
+                    <LinkContainer to='/'>
+                        <NavbarBrand className='mr-auto'>
+                            <img src="/assets/images/logo.png" alt='staff logo' /> 
+                        </NavbarBrand> 
+                    </LinkContainer>
                     
-                    </NavbarBrand>
                 
                     <NavbarToggler onClick={this.toggleNav} />
                     

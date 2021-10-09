@@ -57,7 +57,7 @@ function RenderStaff({staff,DEPARTMENTS}){
 
 const StaffDetail = (pros) => {
     return(
-        <div className='alert-info' style={{padding:'2vw'}}>
+        <div style={{padding:'2vw'}}>
             <div className="row " >
                 <Breadcrumb className='col-md-12'>   
                     <BreadcrumbItem><Link to='/'><b>Nhân viên</b></Link></BreadcrumbItem>

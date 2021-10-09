@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 
 
@@ -106,11 +107,11 @@ class Footer extends Component {
 
 
                         <div className="col-md-4 col-lg-4 col-xl-4 mx-auto mb-md-0 mb-4">
-
                             <h6 className="text-uppercase font-weight-bold mb-4">
                                 Contact
                             </h6>
                             <p><i className="fa fa-home me-3"></i> New York, NY 10012, US</p>
+                            
                             <p>
                                 <i className="fa fa-envelope me-3"></i>
                                 info@example.com
@@ -126,7 +127,7 @@ class Footer extends Component {
                 {/* Footer 2 */}
                 <div className="text-center p-4" style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}>
                     © 2021 Copyright:
-                    <a className="text-reset font-weight-bold" href="https://www.facebook.com/thaydoisomenh/"> QUANLBFX12493</a>
+                    <a target='_blank' className="text-reset font-weight-bold" href="https://www.facebook.com/thaydoisomenh/"> QUANLBFX12493</a>
                 </div>
             </div>
         );
