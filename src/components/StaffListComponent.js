@@ -24,15 +24,17 @@ function RenderStaffList({ staffs }) {
 }
 
 const StaffList = (props) => {
-    // const deparments = props.deparments;
+    // Dropdown hook của filter
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const toggle = () => setDropdownOpen(prevState => !prevState);
+
     // Search input hook
     const [searchInput, setSearchInput] = useState("")
 
-    // Handle click filter Department
+    // Hook filter Department
     const [departmentValue, setDepartmentValue] = useState('')
 
-    
-   
+    //Tạo array chứa các staff được lọc thông qua search
     const newStaffs = props.staffs.filter(function(staff) {
 
         if (searchInput === '')  {
@@ -47,11 +49,11 @@ const StaffList = (props) => {
         }
     })
     
+    //Tạo array chứa các staff được lọc thông qua filter
     const staffWithDepartment = props.staffs.filter(function(staff) {
 
         if (staff.department.name.toLowerCase() === departmentValue)  {
             return staff;
-
         }
         else {
             return null
@@ -60,16 +62,12 @@ const StaffList = (props) => {
     
     
 
-    // Dropdown hook
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-    const toggle = () => setDropdownOpen(prevState => !prevState);
-
-
+    
 
     return (
         <div style={{ padding: '3vw' }}>
             <div className='row pt-3'>
-
+                {/* Dropdown element*/}
                 <div className='col-12 col-sm-6 col-md-8 col-lg-9 p-1 ml-auto' >
                     <Dropdown className="ml-auto" isOpen={dropdownOpen} toggle={toggle}>
                         <DropdownToggle color='info' caret>
@@ -90,10 +88,11 @@ const StaffList = (props) => {
                         </DropdownMenu>
                     </Dropdown>
                 </div>
+
+                {/* Search element */}
                 <div className='col-12 col-sm-6 col-md-4 col-lg-3 bg-info p-1 ml-auto' >
                     <Input onFocus={()=> setDepartmentValue('')} onChange={(event) => setSearchInput(event.target.value)} className='input-lg' placeholder="Tìm kiếm nhân viên" type='text' />
                 </div>
-
             </div>
 
             <div className="row pt-5" >

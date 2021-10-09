@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import { Link } from "react-router-dom";
 
 
 
@@ -23,39 +23,43 @@ class Footer extends Component {
                         <div className="col-md-6">
                             <div className="row">
                                 <div className="col-2 col-md-2">
-                                    <a href="/" className="me-4 text-reset">
+                                    <Link to="/" className="me-4 text-reset">
                                         <i className="fa fa-facebook-f"></i>
-                                    </a>
+                                    </Link>
                                 </div>
 
                                 <div className="col-2 col-md-2">
-                                    <a href="/" className="me-4 text-reset">
+                                    <Link to="/" className="me-4 text-reset">
                                         <i className="fa fa-twitter"></i>
-                                    </a>
+                                    </Link>
                                 </div>
 
                                 <div className="col-2 col-md-2">
-                                    <a href="/" className="me-4 text-reset">
+                                    <Link to="/" className="me-4 text-reset">
                                         <i className="fa fa-github"></i>
-                                    </a>
+                                    </Link>
+
                                 </div>
 
                                 <div className="col-2 col-md-2">
-                                    <a href="/" className="me-4 text-reset">
+                                    <Link to="/" className="me-4 text-reset">
                                         <i className="fa fa-google"></i>
-                                    </a>
+                                    </Link>
+
                                 </div>
 
                                 <div className="col-2 col-md-2">
-                                    <a href="/" className="me-4 text-reset">
+                                    <Link to="/" className="me-4 text-reset">
                                         <i className="fa fa-instagram"></i>
-                                    </a>
+                                    </Link>
+
                                 </div>
 
                                 <div className="col-2 col-md-2">
-                                    <a href="/" className="me-4 text-reset">
+                                    <Link to="/" className="me-4 text-reset">
                                         <i className="fa fa-linkedin"></i>
-                                    </a>
+                                    </Link>
+
                                 </div>
                             </div>
                         </div>
@@ -71,10 +75,8 @@ class Footer extends Component {
                             <h6 className="text-uppercase font-weight-bold mb-4">
                                 <i className="fa fa-graduation-cap me-3"></i> Funix education
                             </h6>
-                            <p>
+                            <p className='text-justify'> 
                                 Bài Assignment 02 môn React JS của học viên <strong>Quân Lê Bá</strong>.
-                            </p>
-                            <p>
                                 Mã số  FX12493 hiện đang học khóa Doanh nghiệp tài trợ của FUNIX
                             </p>
                         </div>
@@ -84,40 +86,44 @@ class Footer extends Component {
                         <div className="col-md-4  mx-auto mb-4">
 
                             <h6 className="text-uppercase font-weight-bold mb-4">
-                                Products
+                                PAGES
                             </h6>
                             <p>
-                                <a href="#!" className="text-reset">Angular</a>
+                            <Link to='/staff' className="text-reset">
+                                Nhân viên
+                            </Link>  
                             </p>
                             <p>
-                                <a href="#!" className="text-reset">React</a>
+                            <Link to='/department' className="text-reset">
+                                Phòng ban
+                            </Link> 
                             </p>
                             <p>
-                                <a href="#!" className="text-reset">Vue</a>
+                            <Link to='/salary' className="text-reset">
+                                Bảng lương
+                            </Link> 
                             </p>
-                            <p>
-                                <a href="#!" className="text-reset">Laravel</a>
-                            </p>
+                            
                         </div>
 
 
 
-                        
+
 
 
 
                         <div className="col-md-4 col-lg-4 col-xl-4 mx-auto mb-md-0 mb-4">
                             <h6 className="text-uppercase font-weight-bold mb-4">
-                                Contact
+                                Liên hệ
                             </h6>
-                            <p><i className="fa fa-home me-3"></i> New York, NY 10012, US</p>
-                            
+                            <p><i className="fa fa-home me-3"></i> Tầng 0, tòa nhà FPT, 17 Duy Tân, Q. Cầu Giấy, Hà Nội</p>
+
                             <p>
                                 <i className="fa fa-envelope me-3"></i>
-                                info@example.com
+                                info@funix.edu.vn
                             </p>
-                            <p><i className="fa fa-phone me-3"></i> + 01 234 567 88</p>
-                            <p><i className="fa fa-print me-3"></i> + 01 234 567 89</p>
+                            <p><i className="fa fa-phone me-3"></i> +84 782313602 (Zalo, Viber)</p>
+                            
                         </div>
 
                     </div>

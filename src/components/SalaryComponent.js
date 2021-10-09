@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Card, CardHeader, CardFooter, CardBody, Table, Breadcrumb, BreadcrumbItem, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Link } from "react-router-dom";
-// import Button from "@restart/ui/esm/Button";
+
 
 
 function RenderSalaryTable({ staffs }) {
@@ -48,30 +48,11 @@ function RenderSalaryTable({ staffs }) {
         );
     })
 
-    
-    
 
-    // const [orderId,setOrderId] = useState(staffs)
-
-    // const decendingSalary = [...staffs];
-    // decendingSalary.sort((a,b)=>{return parseInt(b.id) - parseInt(a.id);})
-    // console.log(orderId)
     return (
         <React.Fragment>
             
-            {/* <div className="row" style={{ padding: '0 3vw' }}>
-                <Dropdown className="ml-auto"  isOpen={dropdownOpen} toggle={toggle}>
-                    <DropdownToggle color='info' caret>
-                        Mức lương
-                    </DropdownToggle>
-                    <DropdownMenu>
-                        <DropdownItem >Tăng dần</DropdownItem>
-                        <DropdownItem divider/>
-                        <DropdownItem onClick={()=><RenderSalaryTable staffs ={orderId}/>}>Giảm dần</DropdownItem>
-                    </DropdownMenu>
-                </Dropdown>
-
-            </div> */}
+           
             <div className="row" style={{ padding: '0 2vw' }}>
                 {employees}
             </div>
@@ -93,7 +74,7 @@ const Salary = (pros) => {
         <React.Fragment>
             <div className="row" >
                 <Breadcrumb className='col-md-12' style={{ padding: '2vw 3vw 0 3vw' }}>
-                    <BreadcrumbItem><Link to='/'><b>Trang chủ</b></Link></BreadcrumbItem>
+                    <BreadcrumbItem><Link to='/'><b>Nhân viên</b></Link></BreadcrumbItem>
                     <BreadcrumbItem active><b>Lương</b></BreadcrumbItem>
                 </Breadcrumb>
             </div>
