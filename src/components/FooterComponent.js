@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+
 
 
 
@@ -127,7 +127,7 @@ class Footer extends Component {
                 {/* Footer 2 */}
                 <div className="text-center p-4" style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}>
                     © 2021 Copyright:
-                    <a target='_blank' className="text-reset font-weight-bold" href="https://www.facebook.com/thaydoisomenh/"> QUANLBFX12493</a>
+                    <a target='_blank' rel="noopener noreferrer" className="text-reset font-weight-bold" href="https://www.facebook.com/thaydoisomenh/"> QUANLBFX12493</a>
                 </div>
             </div>
         );

@@ -1,6 +1,6 @@
 import React,{Component} from "react";
 import {Navbar, NavbarBrand, Nav,NavbarToggler,Collapse,NavItem} from 'reactstrap';
-import {Link, NavLink} from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 import { LinkContainer } from "react-router-bootstrap";
 
 class Header extends Component{
@@ -27,7 +27,6 @@ class Header extends Component{
                         </NavbarBrand> 
                     </LinkContainer>
                     
-                
                     <NavbarToggler onClick={this.toggleNav} />
                     
                     <Collapse isOpen={this.state.isNavOpen} navbar >
