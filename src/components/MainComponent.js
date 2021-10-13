@@ -9,6 +9,7 @@ import DepartmentList from './DepartmentListComponent';
 import StaffDetail from "./StaffDetailComponent";
 import { BrowserRouter, Switch,Route,Redirect} from 'react-router-dom';
 
+
 class Main extends Component{
   constructor(props){
     super(props);
@@ -40,9 +41,9 @@ class Main extends Component{
             <Route path='/staff/:staffId' component={StaffWithId} />
             <Route path='/department' component={()=> <DepartmentList departments={this.state.departments}  />} />
             <Redirect to='/staff' />
-
           </Switch>
           <Footer />
+          
         </BrowserRouter>
         
       </div>

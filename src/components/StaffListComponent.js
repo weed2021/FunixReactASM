@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Card, CardImg, CardHeader, Input, Button, Form, FormGroup, Col } from "reactstrap";
+import { Card, CardImg, CardHeader, Input, Button, Form, FormGroup, Col, Modal, ModalHeader, ModalBody, Label, Row } from "reactstrap";
+import { Control, LocalForm, Errors } from 'react-redux-form';
+import 'react-datepicker/dist/react-datepicker.css';
+import ReactDatePicker from "react-datepicker";
+
 
 function RenderStaffList({ staffs }) {
     const _staffs = staffs.map((staff) => {
@@ -44,36 +48,101 @@ const StaffList = (props) => {
         }
     })
 
-    const handleSearch = (event)=>{
-        
+    const handleSearch = (event) => {
+
         setSearchInput(search.current.value)
         event.preventDefault()
         search.current.value = ""
-        
+
     }
+
     let search = React.createRef();
+
+    const [modal, setModal] = useState(false);
+    const toggle = () => setModal(!modal);
+    
+
+    const [startDate, setStartDate] = useState(new Date());
+    const _DatePicker = () => {
+        return (
+        <ReactDatePicker 
+            className='form-control' 
+            selected={startDate} 
+            onChange={(date) => setStartDate(date)} 
+            dateFormat="dd/MM/yyyy"
+            
+        />
+      );
+    }
+    
+    const handleSubmit = (values,startDate)=>{
+        console.log(startDate)
+        alert(JSON.stringify(values))
+    }
+
     return (
         <div style={{ padding: '3vw' }}>
             <div className='row pt-3'>
-                
-                <div className='col-12 col-md-6 col-lg-4 ml-auto' >
+                <div className="col-12 col-md-6 col-lg-4 mr-auto">
+                    <Button outline onClick={toggle} ><span className="fa fa-address-card-o fa-lg"></span>{' '}Thêm nhân viên</Button>
+                </div>
+
+                <div className='col-12 col-md-6 col-lg-4 ml-auto p-3' >
                     <Form onSubmit={handleSearch}>
                         <FormGroup row>
                             <Col>
                                 <Input md={10}
-                                    // onChange={(event) => setSearchInput(event.target.value)} 
-                                    name="search" 
+                                    name="search"
                                     id="search"
                                     className='input-lg'
                                     placeholder="Tìm kiếm nhân viên"
                                     type='text'
-                                    innerRef={search}  
+                                    innerRef={search}
                                 />
                             </Col>
                             <Button type="submit" md={2} color='primary'>Tìm kiếm</Button>
                         </FormGroup>
                     </Form>
                 </div>
+
+                <Modal isOpen={modal} toggle={toggle}>
+                    <ModalHeader toggle={toggle}>Thêm nhân viên mới</ModalHeader>
+                    <ModalBody>
+                        <LocalForm onSubmit={(values) => handleSubmit(values,startDate)}>
+                            <Row className='form-group'>
+                                <Label htmlFor="name" md={2}>Họ tên</Label>
+                                <Col md={10}>
+                                    <Control.text model=".name" className='form-control'
+                                        placeholder='Nhập tên nhân viên'
+                                        name='name' id='name'
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className='form-group'>
+                                <Label htmlFor="doB" md={2}>Ngày sinh</Label>
+                                <Col md={10}>
+                                    <Control model=".doB"
+                                        placeholder='dd/mm/yyyy'
+                                        name='doB' id='doB'
+                                        className='form-control'
+                                        component={_DatePicker}
+                                    />
+
+
+                                </Col>
+                            </Row>
+
+                            <FormGroup row>
+                                <Col md={{ size: 10, offset: 2 }}>
+                                    <Button type="submit" color="primary">
+                                        Send Feedback
+                                    </Button>
+                                </Col>
+                            </FormGroup>
+                        </LocalForm>
+                    </ModalBody>
+
+                </Modal>
             </div>
 
             <div className="row pt-5" >
