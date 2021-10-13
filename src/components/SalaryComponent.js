@@ -51,14 +51,9 @@ function RenderSalaryTable({ staffs }) {
 
     return (
         <React.Fragment>
-            
-           
             <div className="row" style={{ padding: '0 2vw' }}>
                 {employees}
             </div>
-
-
-
         </React.Fragment>
 
     );
