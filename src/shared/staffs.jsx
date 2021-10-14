@@ -1,3 +1,10 @@
+
+export const NewJSON = [
+    {
+        id: 1,
+        name:'weed'
+    }
+]
 export const DEPARTMENTS =
     [
         {
