@@ -1,17 +1,19 @@
-import BirthDayPicker, { _birthDay, StartDate, _startDate,CustomInput } from "./DatepickerComponent";
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardImg, CardHeader, Input, Button, Form, FormGroup, Col, Modal, ModalHeader, ModalBody, Label, Row } from "reactstrap";
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import 'react-datepicker/dist/react-datepicker.css';
+import dateFormat from "dateformat";
 
 
 // Handle Error
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
-
-
+const validBirthDay = (val) => new Date (val).getTime() < new Date().getTime();
+const validStartDate = (val) => new Date (val).getTime() < new Date().getTime();
+const validPositive = (val) =>(val >=0) && !isNaN(val);
 
 function RenderStaffList({ staffs }) {
     const _staffs = staffs.map((staff) => {
@@ -67,14 +69,16 @@ const StaffList = (props) => {
     const toggle = () => setModal(!modal);
 
 
-    const handleSubmit = (values, _birthDay, _startDate) => {
-        alert(values.test)
-
-        // alert(JSON.stringify(values))
-
+    const handleSubmit = (values) => {
+        // const a = new Date(values.doB)
+        // const b = new Date()
+        // if(a.getTime()>=(b.getTime()-5.68e+11)){
+        //     alert(b.getTime()-5.68e+11)
+        // }
+        alert(values.startDate)
+        
+        
     }
-
-
 
     return (
         <div style={{ padding: '3vw' }}>
@@ -104,7 +108,7 @@ const StaffList = (props) => {
                 <Modal isOpen={modal} toggle={toggle}>
                     <ModalHeader toggle={toggle}>Thêm nhân viên mới</ModalHeader>
                     <ModalBody>
-                        <LocalForm onSubmit={(values) => handleSubmit(values, _birthDay, _startDate)}>
+                        <LocalForm onSubmit={(values) => handleSubmit(values)}>
                             <Row className='form-group'>
                                 <Label htmlFor="name" md={2}>Họ tên</Label>
                                 <Col md={10}>
@@ -133,64 +137,77 @@ const StaffList = (props) => {
                             <Row className='form-group'>
                                 <Label htmlFor="doB" md={2}>Ngày sinh</Label>
                                 <Col md={10}>
-                                    <Control.custom model=".doB"
+                                    <Control.text type='date' model=".doB"
                                         placeholder='dd/mm/yyyy'
                                         name='doB' id='doB'
                                         className='form-control'
-                                        component={BirthDayPicker}
-                                        mapProps={{
-                                            value: (props) => props.viewValue,
+                                        validators={{
+                                            required,
+                                            validBirthDay
                                         }}
                                     />
                                 </Col>
+                                <Errors
+                                    className='text-danger'
+                                    model='.doB'
+                                    show='touched'
+                                    messages={{
+                                        required: 'Không được bỏ trống!',
+                                        validBirthDay:'Chưa đủ tuổi!'
+                                    }}
+
+                                />
                             </Row>
-
-                            <Control model=".test"
-                                name='test'
-                                id='test'
-                                component={CustomInput}
-                                mapProps={{
-                                    value: (props) => props.viewValue,
-                                    onDateChange: (props) => props.onChange,
-                                    // date: (props) => props.modelValue,
-                                }}
-                                {...props}
-                            />
-
-
-
-
-
-
-
-
-
-
 
                             <Row className='form-group'>
                                 <Label htmlFor="startDate" md={2}>Ngày vào công ty</Label>
                                 <Col md={10}>
-                                    <Control model=".startDate"
+                                    <Control.text type='date' model=".startDate"
                                         placeholder='dd/mm/yyyy'
                                         name='startDate' id='startDate'
                                         className='form-control'
-                                        component={StartDate}
+                                        validators={{
+                                            required,
+                                            validStartDate
+                                        }}
                                     />
                                 </Col>
+                                <Errors
+                                    className='text-danger'
+                                    model='.startDate'
+                                    show='touched'
+                                    messages={{
+                                        required: 'Không được bỏ trống!',
+                                        validStartDate:'Ngày gia nhập không hợp lệ!'
+                                    }}
+
+                                />
                             </Row>
+
 
                             <Row className='form-group'>
                                 <Label md={2} htmlFor='department'>Phòng ban</Label>
                                 <Col md={10}>
-                                    <Control.select model='.department' className='form-control' defaultValue='sale'>
-                                        <option value="" disabled hidden>Choose here</option>
+                                    <Control.select model='.department' className='form-control' validators={{required}}>
+                                        <option value="" selected disabled hidden>Choose here</option>
                                         <option value='sale'>Sale</option>
                                         <option value='hr'>HR</option>
                                         <option value='marketing'>Marketing</option>
                                         <option value='it'>IT</option>
                                         <option value='finance'>Finance</option>
                                     </Control.select>
+                                    
                                 </Col>
+                                <Errors
+                                    className='text-danger'
+                                    model='.department'
+                                    show='touched'
+                                    messages={{
+                                        required: 'Chưa chọn phòng ban!',
+                                        
+                                    }}
+
+                                />
                             </Row>
                             <Row className='form-group'>
                                 <Label htmlFor="salaryScale" md={2}>Hệ số lương</Label>
@@ -199,9 +216,21 @@ const StaffList = (props) => {
                                         name='salaryScale' id='salaryScale'
                                         className='form-control'
                                         defaultValue='1'
+                                        validators={{required,
+                                            validPositive}}
 
                                     />
                                 </Col>
+                                <Errors
+                                    className='text-danger'
+                                    model='.salaryScale'
+                                    show='touched'
+                                    messages={{
+                                        required: 'Không được bỏ trống!',
+                                        validPositive: 'Hệ số lương không hợp lệ!'
+                                    }}
+
+                                />
                             </Row>
 
 
@@ -212,8 +241,20 @@ const StaffList = (props) => {
                                         className='form-control'
                                         name='annualLeave' id='annualLeave'
                                         defaultValue='0'
+                                        validators={{required,
+                                            validPositive}}
                                     />
                                 </Col>
+                                <Errors
+                                    className='text-danger'
+                                    model='.annualLeave'
+                                    show='touched'
+                                    messages={{
+                                        required: 'Không được bỏ trống!',
+                                        validPositive: 'Hệ số lương không hợp lệ!'
+                                    }}
+
+                                />
                             </Row>
 
                             <Row className='form-group'>
@@ -223,8 +264,19 @@ const StaffList = (props) => {
                                         className='form-control'
                                         name='overTime' id='overTime'
                                         defaultValue='0'
+                                        validators={{required,
+                                            validPositive}}
                                     />
                                 </Col>
+                                <Errors
+                                    className='text-danger'
+                                    model='.overTime'
+                                    show='touched'
+                                    messages={{
+                                        required: 'Không được bỏ trống!',
+                                        validPositive: 'Giá trị không hợp lệ!'
+                                    }}
+                                 />
                             </Row>
 
                             <FormGroup row>
