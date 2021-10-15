@@ -53,7 +53,7 @@ export const Reducer = (state = initialState, action) => {
             const newStaffs= [...state.staffs,newStaff]
             console.log(newStaffs)
             state.staffs = newStaffs;
-            localStorage.setItem('Staffs',{...state});
+            localStorage.setItem('Staffs',JSON.stringify({...state}));
             return {...state}
             
             
