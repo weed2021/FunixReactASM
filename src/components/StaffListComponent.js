@@ -71,7 +71,7 @@ const StaffList = (props) => {
 
 
     const handleSubmit = (values) => {
-
+        // alert(values.department)
         props.addStaff(values)
 
     }
@@ -185,7 +185,6 @@ const StaffList = (props) => {
                                 <Label md={2} htmlFor='department'>Phòng ban</Label>
                                 <Col md={10}>
                                     <Control.select model='.department' defaultValue='sale' className='form-control' validators={{ required }}>
-                                        <option value="" disabled hidden>Choose here</option>
                                         <option value='sale'>Sale</option>
                                         <option value='hr'>HR</option>
                                         <option value='marketing'>Marketing</option>
@@ -308,6 +307,12 @@ const StaffList = (props) => {
 
 };
 
+const mapStateToProps = state =>{
+    return {
+        staffs: state.staffs,
+        departments: state.departments
+    }
+}
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -325,4 +330,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null,mapDispatchToProps)(StaffList);
+export default connect(mapStateToProps,mapDispatchToProps)(StaffList);
