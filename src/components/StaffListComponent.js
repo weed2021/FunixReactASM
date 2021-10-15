@@ -4,16 +4,17 @@ import { Link } from "react-router-dom";
 import { Card, CardImg, CardHeader, Input, Button, Form, FormGroup, Col, Modal, ModalHeader, ModalBody, Label, Row } from "reactstrap";
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import 'react-datepicker/dist/react-datepicker.css';
-import dateFormat from "dateformat";
+// import dateFormat from "dateformat";
+import { connect } from "react-redux";
 
 
 // Handle Error
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
-const validBirthDay = (val) => new Date (val).getTime() < new Date().getTime();
-const validStartDate = (val) => new Date (val).getTime() < new Date().getTime();
-const validPositive = (val) =>(val >=0) && !isNaN(val);
+const validBirthDay = (val) => new Date(val).getTime() < new Date().getTime();
+const validStartDate = (val) => new Date(val).getTime() < new Date().getTime();
+const validPositive = (val) => (val >= 0) && !isNaN(val);
 
 function RenderStaffList({ staffs }) {
     const _staffs = staffs.map((staff) => {
@@ -38,7 +39,7 @@ function RenderStaffList({ staffs }) {
 
 const StaffList = (props) => {
 
-    // Search input hook
+    //Search input hook
     const [searchInput, setSearchInput] = useState("")
 
     //Tạo array chứa các staff được lọc thông qua search
@@ -56,7 +57,6 @@ const StaffList = (props) => {
     })
 
     const handleSearch = (event) => {
-
         setSearchInput(search.current.value)
         event.preventDefault()
         search.current.value = ""
@@ -65,19 +65,15 @@ const StaffList = (props) => {
 
     let search = React.createRef();
 
+
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
 
 
     const handleSubmit = (values) => {
-        // const a = new Date(values.doB)
-        // const b = new Date()
-        // if(a.getTime()>=(b.getTime()-5.68e+11)){
-        //     alert(b.getTime()-5.68e+11)
-        // }
-        alert(values.startDate)
-        
-        
+
+        props.addStaff(values)
+
     }
 
     return (
@@ -153,7 +149,7 @@ const StaffList = (props) => {
                                     show='touched'
                                     messages={{
                                         required: 'Không được bỏ trống!',
-                                        validBirthDay:'Chưa đủ tuổi!'
+                                        validBirthDay: 'Chưa đủ tuổi!'
                                     }}
 
                                 />
@@ -178,7 +174,7 @@ const StaffList = (props) => {
                                     show='touched'
                                     messages={{
                                         required: 'Không được bỏ trống!',
-                                        validStartDate:'Ngày gia nhập không hợp lệ!'
+                                        validStartDate: 'Ngày gia nhập không hợp lệ!'
                                     }}
 
                                 />
@@ -188,15 +184,15 @@ const StaffList = (props) => {
                             <Row className='form-group'>
                                 <Label md={2} htmlFor='department'>Phòng ban</Label>
                                 <Col md={10}>
-                                    <Control.select model='.department' className='form-control' validators={{required}}>
-                                        <option value="" selected disabled hidden>Choose here</option>
+                                    <Control.select model='.department' defaultValue='sale' className='form-control' validators={{ required }}>
+                                        <option value="" disabled hidden>Choose here</option>
                                         <option value='sale'>Sale</option>
                                         <option value='hr'>HR</option>
                                         <option value='marketing'>Marketing</option>
                                         <option value='it'>IT</option>
                                         <option value='finance'>Finance</option>
                                     </Control.select>
-                                    
+
                                 </Col>
                                 <Errors
                                     className='text-danger'
@@ -204,7 +200,7 @@ const StaffList = (props) => {
                                     show='touched'
                                     messages={{
                                         required: 'Chưa chọn phòng ban!',
-                                        
+
                                     }}
 
                                 />
@@ -216,8 +212,10 @@ const StaffList = (props) => {
                                         name='salaryScale' id='salaryScale'
                                         className='form-control'
                                         defaultValue='1'
-                                        validators={{required,
-                                            validPositive}}
+                                        validators={{
+                                            required,
+                                            validPositive
+                                        }}
 
                                     />
                                 </Col>
@@ -241,8 +239,10 @@ const StaffList = (props) => {
                                         className='form-control'
                                         name='annualLeave' id='annualLeave'
                                         defaultValue='0'
-                                        validators={{required,
-                                            validPositive}}
+                                        validators={{
+                                            required,
+                                            validPositive
+                                        }}
                                     />
                                 </Col>
                                 <Errors
@@ -264,8 +264,10 @@ const StaffList = (props) => {
                                         className='form-control'
                                         name='overTime' id='overTime'
                                         defaultValue='0'
-                                        validators={{required,
-                                            validPositive}}
+                                        validators={{
+                                            required,
+                                            validPositive
+                                        }}
                                     />
                                 </Col>
                                 <Errors
@@ -276,7 +278,7 @@ const StaffList = (props) => {
                                         required: 'Không được bỏ trống!',
                                         validPositive: 'Giá trị không hợp lệ!'
                                     }}
-                                 />
+                                />
                             </Row>
 
                             <FormGroup row>
@@ -306,4 +308,21 @@ const StaffList = (props) => {
 
 };
 
-export default StaffList;
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+
+        addStaff: (values) => {
+            dispatch({ type: 'ADD_NEWSTAFF',
+            values})
+            // const action = {
+            //     type: 'ADD_NEWSTAFF',
+            //     values
+            // }
+            // dispatch(action)
+        }
+
+    }
+}
+
+export default connect(null,mapDispatchToProps)(StaffList);
