@@ -9,54 +9,19 @@ export const initialState = JSON.parse(localStorage.getItem('Staffs')) || {
 export const Reducer = (state = initialState, action) => {
     switch (action.type) {
         case 'ADD_NEWSTAFF':
-            // alert('ok')
-            const values = action.values;
+            // Biến newStaff lưu giá trị từ action dismatch truyền về
+            const newStaff = action.newStaff;
 
-            // Depend on department input tranform to department date
-            let _dpm = '';
-            switch (values.department) {
-                case 'sale':
-                    _dpm = state.departments[0]
-                    break;
-                case 'hr':
-                    _dpm = state.departments[1]
-                    break;
-                case 'marketing':
-                    _dpm = state.departments[2]
-                    break;
-                case 'it':
-                    _dpm = state.departments[3]
-                    break;
-                case 'finance':
-                    _dpm = state.departments[4]
-                    break;
-
-                default:
-                    break;
-            }
-
-            
-            // alert(state.staffs.length)
-            const newStaff = {
-                id: state.staffs.length,
-                name: values.name,
-                doB: new Date(values.doB).toISOString(),
-                salaryScale: values.salaryScale,
-                startDate: new Date(values.startDate).toISOString(),
-                department: _dpm,
-                annualLeave: values.annualLeave,
-                overTime: values.overTime,
-                image: '/assets/images/alberto.png'
-
-            };
-
+            // Biến newStaffs lưu mảng nhân viên mới
             const newStaffs= [...state.staffs,newStaff]
-            console.log(newStaffs)
+
+            // Gán staffs state cũ bằng bằng state staff đã update
             state.staffs = newStaffs;
+
+            // Lưu state mới vào localStorage
             localStorage.setItem('Staffs',JSON.stringify({...state}));
+
             return {...state}
-            
-            
 
         default:
             break;

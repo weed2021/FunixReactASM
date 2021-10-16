@@ -1,20 +1,19 @@
-
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardImg, CardHeader, Input, Button, Form, FormGroup, Col, Modal, ModalHeader, ModalBody, Label, Row } from "reactstrap";
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import 'react-datepicker/dist/react-datepicker.css';
-// import dateFormat from "dateformat";
 import { connect } from "react-redux";
 
 
-// Handle Error
+// Handle validate của modal form to create new staff
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
 const validBirthDay = (val) => new Date(val).getTime() < new Date().getTime();
 const validStartDate = (val) => new Date(val).getTime() < new Date().getTime();
 const validPositive = (val) => (val >= 0) && !isNaN(val);
+
 
 function RenderStaffList({ staffs }) {
     const _staffs = staffs.map((staff) => {
@@ -34,6 +33,7 @@ function RenderStaffList({ staffs }) {
         <div className="row pt-4" >
             {_staffs}
         </div>
+
     );
 }
 
@@ -56,6 +56,7 @@ const StaffList = (props) => {
         }
     })
 
+    // Xử lý click search
     const handleSearch = (event) => {
         setSearchInput(search.current.value)
         event.preventDefault()
@@ -63,16 +64,58 @@ const StaffList = (props) => {
 
     }
 
+
+    // Tạo biến search để lưu giá trị innerRef trong input search
     let search = React.createRef();
 
 
+    // Hook xử lý đóng mở modal
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
 
 
+    // Xử lý khi submit form
     const handleSubmit = (values) => {
-        // alert(values.department)
-        props.addStaff(values)
+
+        // Xử lý dữ liệu khi user select department, _dpm lưu giá trị của department của staff mới
+        let _dpm = '';
+        switch (values.department) {
+            case 'sale':
+                _dpm = props.departments[0]
+                break;
+            case 'hr':
+                _dpm = props.departments[1]
+                break;
+            case 'marketing':
+                _dpm = props.departments[2]
+                break;
+            case 'it':
+                _dpm = props.departments[3]
+                break;
+            case 'finance':
+                _dpm = props.departments[4]
+                break;
+
+            default:
+                break;
+        }
+
+        // Dựa vào values của form gửi tới để tạo ra object staff mới
+        const newStaff = {
+            id: props.staffs.length,
+            name: values.name,
+            doB: new Date(values.doB).toISOString(),
+            salaryScale: values.salaryScale,
+            startDate: new Date(values.startDate).toISOString(),
+            department: _dpm,
+            annualLeave: values.annualLeave,
+            overTime: values.overTime,
+            image: '/assets/images/alberto.png'
+
+        };
+
+        // Truyền staff mới vào dismatch để chạy action bên reducer
+        props.addStaff(newStaff)
 
     }
 
@@ -307,19 +350,24 @@ const StaffList = (props) => {
 
 };
 
-const mapStateToProps = state =>{
+
+// Map state từ store vào component này
+const mapStateToProps = state => {
     return {
         staffs: state.staffs,
         departments: state.departments
     }
 }
 
+// Map action ADD_NEWSTAFF từ store 
 const mapDispatchToProps = (dispatch) => {
     return {
 
-        addStaff: (values) => {
-            dispatch({ type: 'ADD_NEWSTAFF',
-            values})
+        addStaff: (newStaff) => {
+            dispatch({
+                type: 'ADD_NEWSTAFF',
+                newStaff
+            })
             // const action = {
             //     type: 'ADD_NEWSTAFF',
             //     values
@@ -330,4 +378,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(StaffList);
+export default connect(mapStateToProps, mapDispatchToProps)(StaffList);
