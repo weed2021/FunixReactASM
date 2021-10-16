@@ -10,8 +10,8 @@ import { connect } from "react-redux";
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
-const validBirthDay = (val) => new Date(val).getTime() < new Date().getTime();
-const validStartDate = (val) => new Date(val).getTime() < new Date().getTime();
+
+const validDate = (val) => (new Date(val).getTime() < new Date().getTime()) && (parseInt(new Date(val).getFullYear())>1900);
 const validPositive = (val) => (val >= 0) && !isNaN(val);
 
 
@@ -144,13 +144,13 @@ const StaffList = (props) => {
                     </Form>
                 </div>
 
-                <Modal isOpen={modal} toggle={toggle}>
+                <Modal isOpen={modal} toggle={toggle} className="modal-lg">
                     <ModalHeader toggle={toggle}>Thêm nhân viên mới</ModalHeader>
                     <ModalBody>
                         <LocalForm onSubmit={(values) => handleSubmit(values)}>
                             <Row className='form-group'>
-                                <Label htmlFor="name" md={2}>Họ tên</Label>
-                                <Col md={10}>
+                                <Label htmlFor="name" md={3}>Họ tên</Label>
+                                <Col md={9}>
                                     <Control.text model=".name" className='form-control'
                                         placeholder='Nhập tên nhân viên'
                                         name='name' id='name'
@@ -174,15 +174,15 @@ const StaffList = (props) => {
                                 />
                             </Row>
                             <Row className='form-group'>
-                                <Label htmlFor="doB" md={2}>Ngày sinh</Label>
-                                <Col md={10}>
+                                <Label htmlFor="doB" md={3}>Ngày sinh</Label>
+                                <Col md={9}>
                                     <Control.text type='date' model=".doB"
                                         placeholder='dd/mm/yyyy'
                                         name='doB' id='doB'
                                         className='form-control'
                                         validators={{
                                             required,
-                                            validBirthDay
+                                            validDate
                                         }}
                                     />
                                 </Col>
@@ -192,22 +192,22 @@ const StaffList = (props) => {
                                     show='touched'
                                     messages={{
                                         required: 'Không được bỏ trống!',
-                                        validBirthDay: 'Chưa đủ tuổi!'
+                                        validDate: 'Ngày sinh không hợp lệ'
                                     }}
 
                                 />
                             </Row>
 
                             <Row className='form-group'>
-                                <Label htmlFor="startDate" md={2}>Ngày vào công ty</Label>
-                                <Col md={10}>
+                                <Label htmlFor="startDate" md={3}>Ngày vào công ty</Label>
+                                <Col md={9}>
                                     <Control.text type='date' model=".startDate"
                                         placeholder='dd/mm/yyyy'
                                         name='startDate' id='startDate'
                                         className='form-control'
                                         validators={{
                                             required,
-                                            validStartDate
+                                            validDate
                                         }}
                                     />
                                 </Col>
@@ -217,7 +217,7 @@ const StaffList = (props) => {
                                     show='touched'
                                     messages={{
                                         required: 'Không được bỏ trống!',
-                                        validStartDate: 'Ngày gia nhập không hợp lệ!'
+                                        validDate: 'Ngày gia nhập không hợp lệ!'
                                     }}
 
                                 />
@@ -225,8 +225,8 @@ const StaffList = (props) => {
 
 
                             <Row className='form-group'>
-                                <Label md={2} htmlFor='department'>Phòng ban</Label>
-                                <Col md={10}>
+                                <Label md={3} htmlFor='department'>Phòng ban</Label>
+                                <Col md={9}>
                                     <Control.select model='.department' defaultValue='sale' className='form-control' validators={{ required }}>
                                         <option value='sale'>Sale</option>
                                         <option value='hr'>HR</option>
@@ -248,8 +248,8 @@ const StaffList = (props) => {
                                 />
                             </Row>
                             <Row className='form-group'>
-                                <Label htmlFor="salaryScale" md={2}>Hệ số lương</Label>
-                                <Col md={10}>
+                                <Label htmlFor="salaryScale" md={3}>Hệ số lương</Label>
+                                <Col md={9}>
                                     <Control.text model=".salaryScale"
                                         name='salaryScale' id='salaryScale'
                                         className='form-control'
@@ -275,8 +275,8 @@ const StaffList = (props) => {
 
 
                             <Row className='form-group'>
-                                <Label htmlFor="annualLeave" md={2}>Ngày nghỉ còn lại</Label>
-                                <Col md={10}>
+                                <Label htmlFor="annualLeave" md={3}>Ngày nghỉ còn lại</Label>
+                                <Col md={9}>
                                     <Control.text model=".annualLeave"
                                         className='form-control'
                                         name='annualLeave' id='annualLeave'
@@ -300,8 +300,8 @@ const StaffList = (props) => {
                             </Row>
 
                             <Row className='form-group'>
-                                <Label htmlFor="overTime" md={2}>Ngày làm thêm giờ</Label>
-                                <Col md={10}>
+                                <Label htmlFor="overTime" md={3}>Ngày làm thêm giờ</Label>
+                                <Col md={9}>
                                     <Control.text model=".overTime"
                                         className='form-control'
                                         name='overTime' id='overTime'
@@ -324,9 +324,9 @@ const StaffList = (props) => {
                             </Row>
 
                             <FormGroup row>
-                                <Col md={{ size: 10, offset: 2 }}>
-                                    <Button type="submit" color="primary">
-                                        Send Feedback
+                                <Col md={{ size: 9, offset: 3 }}>
+                                    <Button type="submit" color="info">
+                                        Tạo mới
                                     </Button>
                                 </Col>
                             </FormGroup>
