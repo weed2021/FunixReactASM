@@ -23,7 +23,7 @@ class Header extends Component{
                 <div className='container'>
                     <LinkContainer to='/'>
                         <NavbarBrand className='mr-auto'>
-                            <img src="/assets/images/logo.png" alt='staff logo' /> 
+                            <img src="/asset/images/logo.png" alt='staff logo' /> 
                         </NavbarBrand> 
                     </LinkContainer>
                     

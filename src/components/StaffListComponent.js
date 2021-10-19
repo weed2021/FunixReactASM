@@ -43,7 +43,7 @@ const StaffList = (props) => {
     const [searchInput, setSearchInput] = useState("")
 
     //Tạo array chứa các staff được lọc thông qua search
-    const newStaffs = props.staffs.filter(function (staff) {
+    const newStaffs = props.staffs.staffs.filter(function (staff) {
 
         if (searchInput === '') {
             return staff;
@@ -102,7 +102,7 @@ const StaffList = (props) => {
 
         // Dựa vào values của form gửi tới để tạo ra object staff mới
         const newStaff = {
-            id: props.staffs.length,
+            id: props.staffs.staffs.length,
             name: values.name,
             doB: new Date(values.doB).toISOString(),
             salaryScale: values.salaryScale,
@@ -113,9 +113,9 @@ const StaffList = (props) => {
             image: '/assets/images/alberto.png'
 
         };
-
         // Truyền staff mới vào dismatch để chạy action bên reducer
         props.addStaff(newStaff)
+        // console.log(props.addStaff)
 
     }
 
@@ -359,23 +359,4 @@ const mapStateToProps = state => {
     }
 }
 
-// Map action ADD_NEWSTAFF từ store 
-const mapDispatchToProps = (dispatch) => {
-    return {
-
-        addStaff: (newStaff) => {
-            dispatch({
-                type: 'ADD_NEWSTAFF',
-                newStaff
-            })
-            // const action = {
-            //     type: 'ADD_NEWSTAFF',
-            //     values
-            // }
-            // dispatch(action)
-        }
-
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(StaffList);
+export default connect(mapStateToProps)(StaffList);
