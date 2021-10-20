@@ -3,7 +3,7 @@ import {Table , Card ,  CardHeader,  CardBody, CardImg, Breadcrumb, BreadcrumbIt
 import dateFormat from "dateformat";
 import { Link } from "react-router-dom";
 
-function RenderStaff({staff,DEPARTMENTS}){
+function RenderStaff({staff,department}){
     if(staff == null){
         return(<div></div>);
     }
@@ -22,7 +22,7 @@ function RenderStaff({staff,DEPARTMENTS}){
                                     <tbody>
                                         <tr>
                                             <th scope="row">Phòng Ban</th>
-                                            <td>{staff.department.name}</td>
+                                            <td>{department.name}</td>
                                             
                                         </tr>
                                         <tr>
@@ -55,15 +55,15 @@ function RenderStaff({staff,DEPARTMENTS}){
     );
 }
 
-const StaffDetail = (pros) => {
+const StaffDetail = (props) => {
     return(
         <div style={{padding:'2vw'}}>
             <div className="row " >
                 <Breadcrumb className='col-md-12'>   
                     <BreadcrumbItem><Link to='/'><b>Nhân viên</b></Link></BreadcrumbItem>
-                    <BreadcrumbItem active><b>{pros.staff.name}</b></BreadcrumbItem>
+                    <BreadcrumbItem active><b>{props.staff.name}</b></BreadcrumbItem>
                 </Breadcrumb>
-                {/* <RenderStaff staff={pros.staff} DEPARTMENTS={pros.departments} /> */}
+                <RenderStaff staff={props.staff} department={props.departments.find((department) => department.id === props.staff.departmentId )} />
             </div>
         </div>
         

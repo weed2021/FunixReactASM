@@ -6,7 +6,8 @@ export const Staffs = (state = {
 }, action) => {
     switch (action.type) {
         case ActionTypes.ADD_NEWSTAFF:
-            return state.concat(action.payload);
+            return {...state, staffs: state.staffs.concat(action.payload)}
+            // return state.concat(action.payload);
         case ActionTypes.ADD_STAFFS:
             return { ...state,staffs: action.payload }
         default:

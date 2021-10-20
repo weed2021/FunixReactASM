@@ -6,6 +6,20 @@ export const addStaff = (staff) => ({
     payload: staff
 })
 
+export const postStaff = (staff) => dispatch => {
+    return fetch(baseURL+'staffs',{
+        method: "POST",
+        body: JSON.stringify(staff),
+        headers: {
+            'Content-type': 'application/json'
+        },
+        credentials: 'same-origin'
+
+    })
+    .then(response =>response.json())
+    .then(staff => dispatch(addStaff(staff)))
+}
+
 export const fetchStaffs = () => dispatch => {
     return fetch(baseURL + 'staffs')
         .then(response => response.json())

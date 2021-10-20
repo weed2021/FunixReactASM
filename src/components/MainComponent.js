@@ -10,7 +10,7 @@ import DepartmentDetail from './DepartmentDetail';
 import StaffDetail from "./StaffDetailComponent";
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addStaff, fetchStaffs, fetchDepartments, fetchStaffsSalary } from '../redux/ActionCreators';
+import { postStaff, fetchStaffs, fetchDepartments, fetchStaffsSalary } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
   return {
@@ -21,7 +21,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addStaff: (staff) => dispatch(addStaff(staff)),
+  postStaff: (staff) => dispatch(postStaff(staff)),
   fetchStaffs: () => { dispatch(fetchStaffs()) },
   fetchDepartments: () => { dispatch(fetchDepartments()) },
   fetchStaffsSalary: () => { dispatch(fetchStaffsSalary()) }
@@ -41,7 +41,7 @@ class Main extends Component {
       return (
         <StaffDetail
           staff={this.props.staffs.staffs.filter((staff) => staff.id === parseInt(match.params.staffId, 10))[0]}
-          departments={this.props.departments}
+          departments={this.props.departments.departments}
         />
 
       );
@@ -62,7 +62,7 @@ class Main extends Component {
 
         <Header />
         <Switch>
-          <Route exact path='/staff' component={() => <StaffList addStaff={this.props.addStaff} />} />
+          <Route exact path='/staff' component={() => <StaffList postStaff={this.props.postStaff} />} />
           <Route path='/salary' component={() => <Salary staffsSalary={this.props.staffsSalary.staffsSalary} />} />
           <Route path='/staff/:staffId' component={StaffWithId} />
           <Route exact path='/department' component={() => <DepartmentList departments={this.props.departments.departments} />} />

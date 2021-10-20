@@ -81,40 +81,43 @@ const StaffList = (props) => {
         let _dpm = '';
         switch (values.department) {
             case 'sale':
-                _dpm = props.departments[0]
+                _dpm = 'Dept01'
                 break;
             case 'hr':
-                _dpm = props.departments[1]
+                _dpm = 'Dept02'
                 break;
             case 'marketing':
-                _dpm = props.departments[2]
+                _dpm = 'Dept03'
                 break;
             case 'it':
-                _dpm = props.departments[3]
+                _dpm = 'Dept04'
                 break;
             case 'finance':
-                _dpm = props.departments[4]
+                _dpm = 'Dept05'
                 break;
 
             default:
                 break;
         }
 
+        const salary = parseInt((values.salaryScale * 3000000) + (values.overTime * 200000));
+
         // Dựa vào values của form gửi tới để tạo ra object staff mới
         const newStaff = {
-            id: props.staffs.staffs.length,
+            
             name: values.name,
             doB: new Date(values.doB).toISOString(),
             salaryScale: values.salaryScale,
             startDate: new Date(values.startDate).toISOString(),
-            department: _dpm,
+            departmentId: _dpm,
             annualLeave: values.annualLeave,
             overTime: values.overTime,
-            image: '/assets/images/alberto.png'
+            image: '/asset/images/alberto.png',
+            salary: salary
 
         };
         // Truyền staff mới vào dismatch để chạy action bên reducer
-        props.addStaff(newStaff)
+        props.postStaff(newStaff)
         // console.log(props.addStaff)
 
     }
