@@ -4,4 +4,6 @@ export const ADD_STAFFS = 'ADD_STAFFS';
 
 export const ADD_DEPARTMENTS = 'ADD_DEPARTMENTS';
 
-export const ADD_STAFFS_SALARY = 'ADD_STAFFS_SALARY'
+export const ADD_STAFFS_SALARY = 'ADD_STAFFS_SALARY';
+
+export const DELETE_STAFF = 'DELETE_STAFF';
