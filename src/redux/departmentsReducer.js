@@ -6,7 +6,7 @@ export const Departments = (state = {
 }, action) => {
     switch (action.type) {
         case ActionTypes.ADD_DEPARTMENTS:
-            return {...state,departments:action.payload}
+            return { ...state, departments: action.payload }
         default:
             return state;
     }

@@ -3,3 +3,5 @@ export const ADD_NEWSTAFF = 'ADD_NEWSTAFF';
 export const ADD_STAFFS = 'ADD_STAFFS';
 
 export const ADD_DEPARTMENTS = 'ADD_DEPARTMENTS';
+
+export const ADD_STAFFS_SALARY = 'ADD_STAFFS_SALARY'

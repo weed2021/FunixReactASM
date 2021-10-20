@@ -27,3 +27,14 @@ export const addDepartments = (departments) =>({
     type: ActionTypes.ADD_DEPARTMENTS,
     payload: departments
 })
+
+export const fetchStaffsSalary = () => dispatch => {
+    return fetch(baseURL + 'staffsSalary')
+    .then(response => response.json())
+    .then(staffsSalary => dispatch(addStaffsSalary(staffsSalary)))
+}
+
+export const addStaffsSalary = (staffsSalary) =>({
+    type: ActionTypes.ADD_STAFFS_SALARY,
+    payload: staffsSalary
+})

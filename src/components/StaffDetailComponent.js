@@ -63,7 +63,7 @@ const StaffDetail = (pros) => {
                     <BreadcrumbItem><Link to='/'><b>Nhân viên</b></Link></BreadcrumbItem>
                     <BreadcrumbItem active><b>{pros.staff.name}</b></BreadcrumbItem>
                 </Breadcrumb>
-                <RenderStaff staff={pros.staff} DEPARTMENTS={pros.departments} />
+                {/* <RenderStaff staff={pros.staff} DEPARTMENTS={pros.departments} /> */}
             </div>
         </div>
         
