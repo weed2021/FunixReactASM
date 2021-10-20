@@ -51,7 +51,8 @@ class Main extends Component {
       console.log(match.params.departmentId)
       return (
         <DepartmentDetail
-          staffs={this.props.staffs.staffs.filter((staff) => staff.departmentId == match.params.departmentId)}
+          staffs={this.props.staffs.staffs.filter((staff) => staff.departmentId === match.params.departmentId)}
+          department={this.props.departments.departments.find((department) => department.id === match.params.departmentId)}
         />
       );
     }

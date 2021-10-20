@@ -1,31 +1,43 @@
 import React from "react";
-import {Table , Card ,  CardHeader,  CardBody, CardImg, Breadcrumb, BreadcrumbItem} from "reactstrap";
-import dateFormat from "dateformat";
+import { Card, CardHeader, CardImg, Breadcrumb, BreadcrumbItem } from "reactstrap";
+
 import { Link } from "react-router-dom";
 
-// function RenderStaffs({staff,DEPARTMENTS}){
-//     if(staff == null){
-//         return(<div></div>);
-//     }
-//     return(
-//         <React.Fragment>
-//             <h1>OK</h1>
-//         </React.Fragment>
-//     );
-// }
+function RenderStaffs({ staffs }) {
+    const _staffs = staffs.map((staff) => {
+        return (
+            <div key={staff.id} className="col-6 col-md-4 col-lg-3 p-2">
+                <Link to={`/staff/${staff.id}`}>
+                    <Card size='lg'>
+                        <CardImg top width="100%" src={staff.image} alt={staff.name} />
+                        <CardHeader className='text-center bg-info'>{staff.name}</CardHeader>
+                    </Card>
+                </Link>
+            </div>
+        );
+    })
+    return (
+
+        <div className="row pt-4 " style={{ padding: '2vw' }}>
+            {_staffs}
+        </div>
+
+    );
+}
 
 const DepartmentDetail = (props) => {
-    return(
-        <div style={{padding:'2vw'}}>
+    return (
+        <div style={{ padding: '2vw' }}>
             <div className="row " >
-                <Breadcrumb className='col-md-12'>   
-                    <BreadcrumbItem><Link to='/'><b>Nhân viên</b></Link></BreadcrumbItem>
-                    <BreadcrumbItem active><b>{props.staffs.name}</b></BreadcrumbItem>
+                <Breadcrumb className='col-md-12'>
+                    <BreadcrumbItem><Link to='/department'><b>Phòng ban</b></Link></BreadcrumbItem>
+                    <BreadcrumbItem active><b>{props.department.name}</b></BreadcrumbItem>
                 </Breadcrumb>
-                {/* <RenderStaffs staff={props.staff} /> */}
+    
             </div>
+            <RenderStaffs staffs={props.staffs} />
         </div>
-        
+
     );
 }
 

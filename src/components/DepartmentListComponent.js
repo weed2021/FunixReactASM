@@ -29,7 +29,7 @@ function RenderDeparment({ departments }) {
         <div className="row " style={{ padding: '2vw' }}>
 
             <Breadcrumb className='col-md-12'>
-                <BreadcrumbItem><Link to='/'><b>Trang chủ</b></Link></BreadcrumbItem>
+                <BreadcrumbItem><Link to='/'><b>Nhân viên</b></Link></BreadcrumbItem>
                 <BreadcrumbItem active><b>Phòng ban</b></BreadcrumbItem>
             </Breadcrumb>
 
