@@ -2,6 +2,21 @@ import * as ActionTypes from './ActionTypes';
 import { baseURL } from '../shared/baseURL'
 
 
+export const updateStaff = (staff) => dispatch => {
+    return fetch(baseURL + 'staffs',{
+        method: 'PATCH',  
+        headers: {
+            'Content-type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(staff),
+        credentials: 'same-origin'
+        
+    })
+        .then(response => response.json())
+        .then(staffs => dispatch(afterDeleteStaff(staffs)))
+}
+
 export const addStaff = (staff) => ({
     type: ActionTypes.ADD_NEWSTAFF,
     payload: staff
@@ -19,7 +34,7 @@ export const deleteStaff = (staffId) => dispatch => {
 
 }
 
-export const afterDeleteStaff = (staffs) =>({
+export const afterDeleteStaff = (staffs) => ({
     type: ActionTypes.DELETE_STAFF,
     payload: staffs
 })
@@ -36,7 +51,7 @@ export const postStaff = (staff) => dispatch => {
     })
         .then(response => response.json())
         .then(staff => dispatch(addStaff(staff)))
-        
+
 }
 
 export const fetchStaffs = () => dispatch => {
