@@ -4,14 +4,14 @@ import { Card, CardImg, CardHeader, Input, Button, Form, FormGroup, Col, Modal, 
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import 'react-datepicker/dist/react-datepicker.css';
 import { connect } from "react-redux";
-
+import { FadeTransform, Fade, Stagger } from 'react-animation-components'
 
 // Handle validate của modal form to create new staff
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
 
-const validDate = (val) => (new Date(val).getTime() < new Date().getTime()) && (parseInt(new Date(val).getFullYear())>1900);
+const validDate = (val) => (new Date(val).getTime() < new Date().getTime()) && (parseInt(new Date(val).getFullYear()) > 1900);
 const validPositive = (val) => (val >= 0) && !isNaN(val);
 
 
@@ -20,10 +20,16 @@ function RenderStaffList({ staffs }) {
         return (
             <div key={staff.id} className="col-6 col-md-4 col-lg-2 p-2">
                 <Link to={`/staff/${staff.id}`}>
-                    <Card size='lg'>
-                        <CardImg top width="100%" src={staff.image} alt={staff.name} />
-                        <CardHeader className='text-center bg-info'>{staff.name}</CardHeader>
-                    </Card>
+                    <FadeTransform
+                        in
+                        transformProps={{
+                            exitTransform: 'scale(0.5) translateY(-50%)'
+                        }}>
+                        <Card size='lg'>
+                            <CardImg top width="100%" src={staff.image} alt={staff.name} />
+                            <CardHeader className='text-center bg-info'>{staff.name}</CardHeader>
+                        </Card>
+                    </FadeTransform>
                 </Link>
             </div>
         );
@@ -104,7 +110,7 @@ const StaffList = (props) => {
         console.log(salary)
         // Dựa vào values của form gửi tới để tạo ra object staff mới
         const newStaff = {
-            
+
             name: values.name,
             doB: new Date(values.doB).toISOString(),
             salaryScale: parseInt(values.salaryScale),
@@ -142,197 +148,208 @@ const StaffList = (props) => {
                                     innerRef={search}
                                 />
                             </Col>
-                            <Button type="submit" md={2} color='primary'>Tìm kiếm</Button>
+                            <Button type="submit" md={2} color='info'>Tìm kiếm</Button>
                         </FormGroup>
                     </Form>
                 </div>
 
                 <Modal isOpen={modal} toggle={toggle} className="modal-lg">
-                    <ModalHeader toggle={toggle}>Thêm nhân viên mới</ModalHeader>
+                    <ModalHeader className='modal-header'  toggle={toggle}> <strong>Thêm nhân viên mới </strong></ModalHeader>
                     <ModalBody>
                         <LocalForm onSubmit={(values) => handleSubmit(values)}>
-                            <Row className='form-group'>
-                                <Label htmlFor="name" md={3}>Họ tên</Label>
-                                <Col md={9}>
-                                    <Control.text model=".name" className='form-control'
-                                        placeholder='Nhập tên nhân viên'
-                                        name='name' id='name'
-                                        validators={{
-                                            required,
-                                            maxLength: maxLength(30),
-                                            minLength: minLength(3)
-                                        }}
-                                    />
-                                </Col>
-                                <Errors
-                                    className='text-danger'
-                                    model='.name'
-                                    show='touched'
-                                    messages={{
-                                        required: 'Không được bỏ trống!',
-                                        maxLength: 'Tối đa 30 ký tự',
-                                        minLength: 'Tối thiểu 3 ký tự',
-                                    }}
+                            <Stagger in>
+                                <Fade in>
+                                    <Row className='form-group'>
+                                        <Label htmlFor="name" className='font-weight-bold' md={3}>Họ tên</Label>
+                                        <Col md={9}>
+                                            <Control.text model=".name" className='form-control'
+                                                placeholder='Nhập tên nhân viên'
+                                                name='name' id='name'
+                                                validators={{
+                                                    required,
+                                                    maxLength: maxLength(30),
+                                                    minLength: minLength(3)
+                                                }}
+                                            />
+                                        </Col>
+                                        <Errors
+                                            className='text-danger'
+                                            model='.name'
+                                            show='touched'
+                                            messages={{
+                                                required: 'Không được bỏ trống!',
+                                                maxLength: 'Tối đa 30 ký tự',
+                                                minLength: 'Tối thiểu 3 ký tự',
+                                            }}
 
-                                />
-                            </Row>
-                            <Row className='form-group'>
-                                <Label htmlFor="doB" md={3}>Ngày sinh</Label>
-                                <Col md={9}>
-                                    <Control.text type='date' model=".doB"
-                                        placeholder='dd/mm/yyyy'
-                                        name='doB' id='doB'
-                                        className='form-control'
-                                        validators={{
-                                            required,
-                                            validDate
-                                        }}
-                                    />
-                                </Col>
-                                <Errors
-                                    className='text-danger'
-                                    model='.doB'
-                                    show='touched'
-                                    messages={{
-                                        required: 'Không được bỏ trống!',
-                                        validDate: 'Ngày sinh không hợp lệ'
-                                    }}
+                                        />
+                                    </Row>
+                                </Fade>
+                                <Fade in>
+                                    <Row className='form-group'>
+                                        <Label htmlFor="doB" className='font-weight-bold' md={3}>Ngày sinh</Label>
+                                        <Col md={9}>
+                                            <Control.text type='date' model=".doB"
+                                                placeholder='dd/mm/yyyy'
+                                                name='doB' id='doB'
+                                                className='form-control'
+                                                validators={{
+                                                    required,
+                                                    validDate
+                                                }}
+                                            />
+                                        </Col>
+                                        <Errors
+                                            className='text-danger'
+                                            model='.doB'
+                                            show='touched'
+                                            messages={{
+                                                required: 'Không được bỏ trống!',
+                                                validDate: 'Ngày sinh không hợp lệ'
+                                            }}
 
-                                />
-                            </Row>
+                                        />
+                                    </Row>
+                                </Fade>
+                                <Fade in>
+                                    <Row className='form-group'>
+                                        <Label htmlFor="startDate" className='font-weight-bold' md={3}>Ngày vào công ty</Label>
+                                        <Col md={9}>
+                                            <Control.text type='date' model=".startDate"
+                                                placeholder='dd/mm/yyyy'
+                                                name='startDate' id='startDate'
+                                                className='form-control'
+                                                validators={{
+                                                    required,
+                                                    validDate
+                                                }}
+                                            />
+                                        </Col>
+                                        <Errors
+                                            className='text-danger'
+                                            model='.startDate'
+                                            show='touched'
+                                            messages={{
+                                                required: 'Không được bỏ trống!',
+                                                validDate: 'Ngày gia nhập không hợp lệ!'
+                                            }}
 
-                            <Row className='form-group'>
-                                <Label htmlFor="startDate" md={3}>Ngày vào công ty</Label>
-                                <Col md={9}>
-                                    <Control.text type='date' model=".startDate"
-                                        placeholder='dd/mm/yyyy'
-                                        name='startDate' id='startDate'
-                                        className='form-control'
-                                        validators={{
-                                            required,
-                                            validDate
-                                        }}
-                                    />
-                                </Col>
-                                <Errors
-                                    className='text-danger'
-                                    model='.startDate'
-                                    show='touched'
-                                    messages={{
-                                        required: 'Không được bỏ trống!',
-                                        validDate: 'Ngày gia nhập không hợp lệ!'
-                                    }}
+                                        />
+                                    </Row>
+                                </Fade>
+                                <Fade in>
+                                    <Row className='form-group'>
+                                        <Label md={3} className='font-weight-bold' htmlFor='department'>Phòng ban</Label>
+                                        <Col md={9}>
+                                            <Control.select model='.department' defaultValue='sale' className='form-control' validators={{ required }}>
+                                                <option value='sale'>Sale</option>
+                                                <option value='hr'>HR</option>
+                                                <option value='marketing'>Marketing</option>
+                                                <option value='it'>IT</option>
+                                                <option value='finance'>Finance</option>
+                                            </Control.select>
 
-                                />
-                            </Row>
+                                        </Col>
+                                        <Errors
+                                            className='text-danger'
+                                            model='.department'
+                                            show='touched'
+                                            messages={{
+                                                required: 'Chưa chọn phòng ban!',
 
+                                            }}
 
-                            <Row className='form-group'>
-                                <Label md={3} htmlFor='department'>Phòng ban</Label>
-                                <Col md={9}>
-                                    <Control.select model='.department' defaultValue='sale' className='form-control' validators={{ required }}>
-                                        <option value='sale'>Sale</option>
-                                        <option value='hr'>HR</option>
-                                        <option value='marketing'>Marketing</option>
-                                        <option value='it'>IT</option>
-                                        <option value='finance'>Finance</option>
-                                    </Control.select>
+                                        />
+                                    </Row>
+                                </Fade>
+                                <Fade in>
+                                    <Row className='form-group'>
+                                        <Label htmlFor="salaryScale" className='font-weight-bold' md={3}>Hệ số lương</Label>
+                                        <Col md={9}>
+                                            <Control.text model=".salaryScale"
+                                                name='salaryScale' id='salaryScale'
+                                                className='form-control'
+                                                defaultValue='1'
+                                                validators={{
+                                                    required,
+                                                    validPositive
+                                                }}
 
-                                </Col>
-                                <Errors
-                                    className='text-danger'
-                                    model='.department'
-                                    show='touched'
-                                    messages={{
-                                        required: 'Chưa chọn phòng ban!',
+                                            />
+                                        </Col>
+                                        <Errors
+                                            className='text-danger'
+                                            model='.salaryScale'
+                                            show='touched'
+                                            messages={{
+                                                required: 'Không được bỏ trống!',
+                                                validPositive: 'Hệ số lương không hợp lệ!'
+                                            }}
 
-                                    }}
+                                        />
+                                    </Row>
+                                </Fade>
+                                <Fade in>
+                                    <Row className='form-group'>
+                                        <Label htmlFor="annualLeave" className='font-weight-bold' md={3}>Ngày nghỉ còn lại</Label>
+                                        <Col md={9}>
+                                            <Control.text model=".annualLeave"
+                                                className='form-control'
+                                                name='annualLeave' id='annualLeave'
+                                                defaultValue='0'
+                                                validators={{
+                                                    required,
+                                                    validPositive
+                                                }}
+                                            />
+                                        </Col>
+                                        <Errors
+                                            className='text-danger'
+                                            model='.annualLeave'
+                                            show='touched'
+                                            messages={{
+                                                required: 'Không được bỏ trống!',
+                                                validPositive: 'Hệ số lương không hợp lệ!'
+                                            }}
 
-                                />
-                            </Row>
-                            <Row className='form-group'>
-                                <Label htmlFor="salaryScale" md={3}>Hệ số lương</Label>
-                                <Col md={9}>
-                                    <Control.text model=".salaryScale"
-                                        name='salaryScale' id='salaryScale'
-                                        className='form-control'
-                                        defaultValue='1'
-                                        validators={{
-                                            required,
-                                            validPositive
-                                        }}
-
-                                    />
-                                </Col>
-                                <Errors
-                                    className='text-danger'
-                                    model='.salaryScale'
-                                    show='touched'
-                                    messages={{
-                                        required: 'Không được bỏ trống!',
-                                        validPositive: 'Hệ số lương không hợp lệ!'
-                                    }}
-
-                                />
-                            </Row>
-
-
-                            <Row className='form-group'>
-                                <Label htmlFor="annualLeave" md={3}>Ngày nghỉ còn lại</Label>
-                                <Col md={9}>
-                                    <Control.text model=".annualLeave"
-                                        className='form-control'
-                                        name='annualLeave' id='annualLeave'
-                                        defaultValue='0'
-                                        validators={{
-                                            required,
-                                            validPositive
-                                        }}
-                                    />
-                                </Col>
-                                <Errors
-                                    className='text-danger'
-                                    model='.annualLeave'
-                                    show='touched'
-                                    messages={{
-                                        required: 'Không được bỏ trống!',
-                                        validPositive: 'Hệ số lương không hợp lệ!'
-                                    }}
-
-                                />
-                            </Row>
-
-                            <Row className='form-group'>
-                                <Label htmlFor="overTime" md={3}>Ngày làm thêm giờ</Label>
-                                <Col md={9}>
-                                    <Control.text model=".overTime"
-                                        className='form-control'
-                                        name='overTime' id='overTime'
-                                        defaultValue='0'
-                                        validators={{
-                                            required,
-                                            validPositive
-                                        }}
-                                    />
-                                </Col>
-                                <Errors
-                                    className='text-danger'
-                                    model='.overTime'
-                                    show='touched'
-                                    messages={{
-                                        required: 'Không được bỏ trống!',
-                                        validPositive: 'Giá trị không hợp lệ!'
-                                    }}
-                                />
-                            </Row>
-
-                            <FormGroup row>
-                                <Col md={{ size: 9, offset: 3 }}>
-                                    <Button type="submit" color="info">
-                                        Tạo mới
-                                    </Button>
-                                </Col>
-                            </FormGroup>
+                                        />
+                                    </Row>
+                                </Fade>
+                                <Fade in>
+                                    <Row className='form-group'>
+                                        <Label htmlFor="overTime" className='font-weight-bold' md={3}>Ngày làm thêm giờ</Label>
+                                        <Col md={9}>
+                                            <Control.text model=".overTime"
+                                                className='form-control'
+                                                name='overTime' id='overTime'
+                                                defaultValue='0'
+                                                validators={{
+                                                    required,
+                                                    validPositive
+                                                }}
+                                            />
+                                        </Col>
+                                        <Errors
+                                            className='text-danger'
+                                            model='.overTime'
+                                            show='touched'
+                                            messages={{
+                                                required: 'Không được bỏ trống!',
+                                                validPositive: 'Giá trị không hợp lệ!'
+                                            }}
+                                        />
+                                    </Row>
+                                </Fade>
+                                <Fade in>
+                                    <FormGroup row>
+                                        <Col md={{ size: 9, offset: 3 }}>
+                                            <Button block size='lg' type="submit" color="info">
+                                                Tạo mới
+                                            </Button>
+                                        </Col>
+                                    </FormGroup>
+                                </Fade>
+                            </Stagger>
                         </LocalForm>
                     </ModalBody>
 

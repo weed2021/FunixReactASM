@@ -5,10 +5,8 @@ import { Link } from "react-router-dom";
 
 
 function RenderSalaryTable({ staffs }) {
-
     const employees = staffs.map((staff) => {
-        // const salary = parseInt((staff.salaryScale * 3000000) + (staff.overTime * 200000));
-
+        
         return (
             <div key={staff.id} className="col-12 col-sm-6 col-md-4  p-4">
                 <Card>
@@ -46,6 +44,7 @@ function RenderSalaryTable({ staffs }) {
                 </Card>
             </div>
         );
+        
     })
 
     return (
@@ -64,10 +63,10 @@ function RenderSalaryTable({ staffs }) {
 const Salary = (props) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const toggle = () => setDropdownOpen(prevState => !prevState);
-    
+
     return (
-        
-        <React.Fragment>
+
+        <div>
             <div className="row" >
                 <Breadcrumb className='col-md-12' style={{ padding: '2vw 3vw 0 3vw' }}>
                     <BreadcrumbItem><Link to='/'><b>Nhân viên</b></Link></BreadcrumbItem>
@@ -76,21 +75,21 @@ const Salary = (props) => {
             </div>
 
             <div className="row" style={{ padding: '0 3vw' }}>
-                <Dropdown className="ml-auto"  isOpen={dropdownOpen} toggle={toggle}>
+                <Dropdown className="ml-auto" isOpen={dropdownOpen} toggle={toggle}>
                     <DropdownToggle color='info' caret>
                         Mã nhân viên
                     </DropdownToggle>
                     <DropdownMenu>
-                        <DropdownItem onClick={()=><RenderSalaryTable staffs ={props.staffsSalary.sort((a,b)=>{return parseInt(a.id) - parseInt(b.id);})}/>}>Tăng dần</DropdownItem>
-                        <DropdownItem divider/>
-                        <DropdownItem onClick={()=><RenderSalaryTable staffs ={props.staffsSalary.sort((a,b)=>{return parseInt(b.id) - parseInt(a.id);})}/>}>Giảm dần</DropdownItem>
+                        <DropdownItem onClick={() => <RenderSalaryTable staffs={props.staffsSalary.sort((a, b) => { return parseInt(a.id) - parseInt(b.id); })} />}>Tăng dần</DropdownItem>
+                        <DropdownItem divider />
+                        <DropdownItem onClick={() => <RenderSalaryTable staffs={props.staffsSalary.sort((a, b) => { return parseInt(b.id) - parseInt(a.id); })} />}>Giảm dần</DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
             </div>
             <RenderSalaryTable staffs={props.staffsSalary} />
-        </React.Fragment>
+        </div>
     );
-    
+
 }
 
 export default Salary;

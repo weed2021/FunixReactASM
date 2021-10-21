@@ -11,6 +11,7 @@ import StaffDetail from "./StaffDetailComponent";
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postStaff, fetchStaffs, fetchDepartments, fetchStaffsSalary, deleteStaff, updateStaff } from '../redux/ActionCreators';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const mapStateToProps = state => {
   return {
@@ -39,13 +40,13 @@ class Main extends Component {
 
   render() {
     const StaffWithId = ({ match }) => {
-      
+
       return (
         <StaffDetail
           staff={this.props.staffs.staffs.find((staff) => staff.id === parseInt(match.params.staffId))}
           departments={this.props.departments.departments}
-          deleteStaff = {this.props.deleteStaff}
-          updateStaff = {this.props.updateStaff}
+          deleteStaff={this.props.deleteStaff}
+          updateStaff={this.props.updateStaff}
         />
 
       );
@@ -57,7 +58,7 @@ class Main extends Component {
         <DepartmentDetail
           staffs={this.props.staffs.staffs.filter((staff) => staff.departmentId === match.params.departmentId)}
           department={this.props.departments.departments.find((department) => department.id === match.params.departmentId)}
-          
+
         />
       );
     }
@@ -66,14 +67,18 @@ class Main extends Component {
       <div>
 
         <Header />
-        <Switch>
-          <Route exact path='/staff' component={() => <StaffList postStaff={this.props.postStaff} />} />
-          <Route path='/salary' component={() => <Salary staffsSalary={this.props.staffsSalary.staffsSalary} />} />
-          <Route path='/staff/:staffId' component={StaffWithId} />
-          <Route exact path='/department' component={() => <DepartmentList departments={this.props.departments.departments} />} />
-          <Route path='/department/:departmentId' component={DepartmentWithId} />
-          <Redirect to='/staff' />
-        </Switch>
+        <TransitionGroup>
+          <CSSTransition key={this.props.location.key} classNames='page' timeout={500}>
+            <Switch location={this.props.location}>
+              <Route exact path='/staff' component={() => <StaffList postStaff={this.props.postStaff} />} />
+              <Route path='/salary' component={() => <Salary staffsSalary={this.props.staffsSalary.staffsSalary} />} />
+              <Route path='/staff/:staffId' component={StaffWithId} />
+              <Route exact path='/department' component={() => <DepartmentList departments={this.props.departments.departments} />} />
+              <Route path='/department/:departmentId' component={DepartmentWithId} />
+              <Redirect to='/staff' />
+            </Switch>
+          </CSSTransition>
+        </TransitionGroup>
         <Footer />
 
       </div>
