@@ -14,7 +14,7 @@ export const updateStaff = (staff) => dispatch => {
         
     })
         .then(response => response.json())
-        .then(staffs => dispatch(afterDeleteStaff(staffs)))
+        .then(staffs => dispatch(addStaffs(staffs)))
 }
 
 export const addStaff = (staff) => ({
@@ -30,7 +30,7 @@ export const deleteStaff = (staffId) => dispatch => {
         }
     })
         .then(response => response.json())
-        .then(staffs => dispatch(afterDeleteStaff(staffs)))
+        .then(staffs => dispatch(addStaffs(staffs)))
 
 }
 

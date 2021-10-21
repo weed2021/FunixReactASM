@@ -136,11 +136,11 @@ function RenderStaff({ staff, department, deleteStaff, history, updateStaff }) {
             </div>
 
             <Modal isOpen={modal} toggle={toggle} className="modal-lg">
-                <ModalHeader toggle={toggle}>{staff.name}</ModalHeader>
+                <ModalHeader toggle={toggle}><strong>{staff.name}</strong></ModalHeader>
                 <ModalBody>
                     <LocalForm onSubmit={(values) => handleSubmit(values)}>
                         <Row className='form-group'>
-                            <Label htmlFor="name" md={3}>Họ tên</Label>
+                            <Label htmlFor="name" className='font-weight-bold' md={3}>Họ tên</Label>
                             <Col md={9}>
                                 <Control.text model=".name" className='form-control'
                                     placeholder='Nhập tên nhân viên'
@@ -166,7 +166,7 @@ function RenderStaff({ staff, department, deleteStaff, history, updateStaff }) {
                             />
                         </Row>
                         <Row className='form-group'>
-                            <Label htmlFor="doB" md={3}>Ngày sinh</Label>
+                            <Label htmlFor="doB" className='font-weight-bold' md={3}>Ngày sinh</Label>
                             <Col md={9}>
                                 <Control.text type='date' model=".doB"
                                 defaultValue={dateFormat(staff.doB,"yyyy-mm-dd")}
@@ -192,7 +192,7 @@ function RenderStaff({ staff, department, deleteStaff, history, updateStaff }) {
                         </Row>
 
                         <Row className='form-group'>
-                            <Label htmlFor="startDate" md={3}>Ngày vào công ty</Label>
+                            <Label htmlFor="startDate" className='font-weight-bold' md={3}>Ngày vào công ty</Label>
                             <Col md={9}>
                                 <Control.text type='date' model=".startDate"
                                     placeholder='dd/mm/yyyy'
@@ -220,7 +220,7 @@ function RenderStaff({ staff, department, deleteStaff, history, updateStaff }) {
 
 
                         <Row className='form-group'>
-                            <Label md={3} htmlFor='department'>Phòng ban</Label>
+                            <Label md={3} className='font-weight-bold' htmlFor='department'>Phòng ban</Label>
                             <Col md={9}>
                                 <Control.select model='.department' defaultValue={department.name} className='form-control' validators={{ required }}>
                                     <option value='Sale'>Sale</option>
@@ -243,7 +243,7 @@ function RenderStaff({ staff, department, deleteStaff, history, updateStaff }) {
                             />
                         </Row>
                         <Row className='form-group'>
-                            <Label htmlFor="salaryScale" md={3}>Hệ số lương</Label>
+                            <Label htmlFor="salaryScale" className='font-weight-bold' md={3}>Hệ số lương</Label>
                             <Col md={9}>
                                 <Control.text model=".salaryScale"
                                     name='salaryScale' id='salaryScale'
@@ -271,7 +271,7 @@ function RenderStaff({ staff, department, deleteStaff, history, updateStaff }) {
 
 
                         <Row className='form-group'>
-                            <Label htmlFor="annualLeave" md={3}>Ngày nghỉ còn lại</Label>
+                            <Label htmlFor="annualLeave" className='font-weight-bold' md={3}>Ngày nghỉ còn lại</Label>
                             <Col md={9}>
                                 <Control.text model=".annualLeave"
                                     className='form-control'
@@ -296,7 +296,7 @@ function RenderStaff({ staff, department, deleteStaff, history, updateStaff }) {
                         </Row>
 
                         <Row className='form-group'>
-                            <Label htmlFor="overTime" md={3}>Ngày làm thêm giờ</Label>
+                            <Label htmlFor="overTime" className='font-weight-bold' md={3}>Ngày làm thêm giờ</Label>
                             <Col md={9}>
                                 <Control.text model=".overTime"
                                     className='form-control'
@@ -322,8 +322,8 @@ function RenderStaff({ staff, department, deleteStaff, history, updateStaff }) {
 
                         <FormGroup row>
                             <Col md={{ size: 9, offset: 3 }}>
-                                <Button type="submit" color="info">
-                                    Tạo mới
+                                <Button type="submit" size='lg' color="info">
+                                    Xác nhận    
                                 </Button>
                             </Col>
                         </FormGroup>

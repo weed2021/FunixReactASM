@@ -101,17 +101,17 @@ const StaffList = (props) => {
         }
 
         const salary = parseInt((values.salaryScale * 3000000) + (values.overTime * 200000));
-
+        console.log(salary)
         // Dựa vào values của form gửi tới để tạo ra object staff mới
         const newStaff = {
             
             name: values.name,
             doB: new Date(values.doB).toISOString(),
-            salaryScale: values.salaryScale,
+            salaryScale: parseInt(values.salaryScale),
             startDate: new Date(values.startDate).toISOString(),
             departmentId: _dpm,
-            annualLeave: values.annualLeave,
-            overTime: values.overTime,
+            annualLeave: parseInt(values.annualLeave),
+            overTime: parseInt(values.overTime),
             image: '/asset/images/alberto.png',
             salary: salary
 
