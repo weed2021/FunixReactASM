@@ -3,15 +3,15 @@ import { baseURL } from '../shared/baseURL'
 
 
 export const updateStaff = (staff) => dispatch => {
-    return fetch(baseURL + 'staffs',{
-        method: 'PATCH',  
+    return fetch(baseURL + 'staffs', {
+        method: 'PATCH',
         headers: {
             'Content-type': 'application/json',
             'Accept': 'application/json'
         },
         body: JSON.stringify(staff),
         credentials: 'same-origin'
-        
+
     })
         .then(response => response.json())
         .then(staffs => dispatch(addStaffs(staffs)))
@@ -34,12 +34,10 @@ export const deleteStaff = (staffId) => dispatch => {
 
 }
 
-export const afterDeleteStaff = (staffs) => ({
-    type: ActionTypes.DELETE_STAFF,
-    payload: staffs
-})
+
 
 export const postStaff = (staff) => dispatch => {
+
     return fetch(baseURL + 'staffs', {
         method: "POST",
         body: JSON.stringify(staff),
@@ -55,9 +53,26 @@ export const postStaff = (staff) => dispatch => {
 }
 
 export const fetchStaffs = () => dispatch => {
+    dispatch(staffsLoading())
+    
     return fetch(baseURL + 'staffs')
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => {
+                var errMess = new Error(error.message);
+                throw errMess;
+            })
+
         .then(response => response.json())
         .then(staffs => dispatch(addStaffs(staffs)))
+        .catch(error => dispatch(staffsFailed(error.message)))
 }
 
 export const addStaffs = (staffs) => ({
@@ -65,7 +80,18 @@ export const addStaffs = (staffs) => ({
     payload: staffs
 })
 
+export const staffsLoading = () => ({
+    type: ActionTypes.STAFFS_LOADING
+})
+
+export const staffsFailed = (errMess) => ({
+    type: ActionTypes.STAFFS_FAILED,
+    payload: errMess
+})
+
+
 export const fetchDepartments = () => dispatch => {
+    dispatch(departmentsLoading());
     return fetch(baseURL + 'departments')
         .then(response => response.json())
         .then(departments => dispatch(addDepartments(departments)))
@@ -76,7 +102,17 @@ export const addDepartments = (departments) => ({
     payload: departments
 })
 
+export const departmentsLoading = () => ({
+    type: ActionTypes.DEPARTMENTS_LOADING
+})
+
+export const departmentsFailed = (errMess) => ({
+    type: ActionTypes.DEPARTMENTS_FAILED,
+    payload: errMess
+})
+
 export const fetchStaffsSalary = () => dispatch => {
+    dispatch(salaryLoading());
     return fetch(baseURL + 'staffsSalary')
         .then(response => response.json())
         .then(staffsSalary => dispatch(addStaffsSalary(staffsSalary)))
@@ -85,4 +121,12 @@ export const fetchStaffsSalary = () => dispatch => {
 export const addStaffsSalary = (staffsSalary) => ({
     type: ActionTypes.ADD_STAFFS_SALARY,
     payload: staffsSalary
+})
+
+export const salaryLoading = () => ({
+    type: ActionTypes.SALARY_LOADING
+})
+export const salaryFailed = (errMess) => ({
+    type: ActionTypes.SALARY_FAILED,
+    payload: errMess
 })

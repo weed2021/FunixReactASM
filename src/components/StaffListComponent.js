@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Card, CardImg, CardHeader, Input, Button, Form, FormGroup, Col, Modal, ModalHeader, ModalBody, Label, Row } from "reactstrap";
+import {
+    Card, CardImg, CardHeader, Input, Button, Form,
+    FormGroup, Col, Modal, ModalHeader, ModalBody, Label, Row,
+    Alert
+} from "reactstrap";
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import 'react-datepicker/dist/react-datepicker.css';
 import { connect } from "react-redux";
 import { FadeTransform, Fade, Stagger } from 'react-animation-components'
+import { Loading } from "./LoadingComponent";
 
 // Handle validate của modal form to create new staff
 const required = (val) => val && val.length;
@@ -15,7 +20,8 @@ const validDate = (val) => (new Date(val).getTime() < new Date().getTime()) && (
 const validPositive = (val) => (val >= 0) && !isNaN(val);
 
 
-function RenderStaffList({ staffs }) {
+function RenderStaffList({ staffs, isLoading, errMess }) {
+
     const _staffs = staffs.map((staff) => {
         return (
             <div key={staff.id} className="col-6 col-md-4 col-lg-2 p-2">
@@ -33,14 +39,38 @@ function RenderStaffList({ staffs }) {
                 </Link>
             </div>
         );
+
     })
-    return (
 
-        <div className="row pt-4" >
-            {_staffs}
-        </div>
+    if (isLoading) {
+        return (
+            <div className="row pt-4" >             
+                    <Loading />
+            </div>
 
-    );
+        )
+    }
+    else if (errMess) {
+        // console.log(JSON.stringify(errMess))
+        return (
+            <div className="row pt-4" >
+                <div className="col-12 ">
+                    <Alert color="danger">
+                        {errMess}
+                    </Alert>
+                    
+                </div>
+            </div>
+
+        );
+    } else {
+        return (
+            <div className="row pt-4" >
+                {_staffs}
+            </div>
+
+        );
+    }
 }
 
 const StaffList = (props) => {
@@ -130,6 +160,7 @@ const StaffList = (props) => {
 
     return (
         <div style={{ padding: '3vw' }}>
+
             <div className='row pt-3'>
                 <div className="col-12 col-md-6 col-lg-4 mr-auto">
                     <Button outline onClick={toggle} ><span className="fa fa-address-card-o fa-lg"></span>{' '}Thêm nhân viên</Button>
@@ -154,7 +185,7 @@ const StaffList = (props) => {
                 </div>
 
                 <Modal isOpen={modal} toggle={toggle} className="modal-lg">
-                    <ModalHeader className='modal-header'  toggle={toggle}> <strong>Thêm nhân viên mới </strong></ModalHeader>
+                    <ModalHeader className='modal-header' toggle={toggle}> <strong>Thêm nhân viên mới </strong></ModalHeader>
                     <ModalBody>
                         <LocalForm onSubmit={(values) => handleSubmit(values)}>
                             <Stagger in>
@@ -355,6 +386,11 @@ const StaffList = (props) => {
 
                 </Modal>
             </div>
+            <div id='success-add-staff' style={{ display: 'none' }} className='row pt-3'>
+                <Alert color="success">
+                    Thêm nhân viên thành công.
+                </Alert>
+            </div>
 
             <div className="row pt-5" >
                 <div className='col-12'>
@@ -363,7 +399,7 @@ const StaffList = (props) => {
                 </div>
             </div>
 
-            <RenderStaffList staffs={newStaffs} />
+            <RenderStaffList staffs={newStaffs} isLoading={props.staffsLoading} errMess={props.staffsErrMess} />
         </div>
 
     );

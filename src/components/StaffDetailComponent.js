@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {
     Table, Card, CardHeader, CardBody, CardImg, Breadcrumb,
     BreadcrumbItem, CardFooter, Button,
-    FormGroup, Col, Modal, ModalHeader, ModalBody, Label, Row
+    FormGroup, Col, Modal, ModalHeader, ModalBody, Label, Row, Alert
 } from "reactstrap";
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import dateFormat from "dateformat";
@@ -28,8 +28,14 @@ function RenderStaff({ staff, department, deleteStaff, history, updateStaff }) {
     }
 
     const handleDelete = (staff) => {
+        
+  
         deleteStaff(staff.id)
-        history.push('/')
+        if (staff == null) {
+            return (<div></div>);
+        }
+        
+        
     }
 
     // Xử lý khi submit form
@@ -102,7 +108,6 @@ function RenderStaff({ staff, department, deleteStaff, history, updateStaff }) {
                                         <tr>
                                             <th scope="row">Phòng Ban</th>
                                             <td>{department.name}</td>
-
                                         </tr>
                                     </Fade>
                                     <Fade in>
@@ -377,20 +382,31 @@ function RenderStaff({ staff, department, deleteStaff, history, updateStaff }) {
 
 const StaffDetail = (props) => {
     let history = useHistory();
-
-    return (
-        <div style={{ padding: '2vw' }}>
-            <div className="row " >
-                <Breadcrumb className='col-md-12'>
-                    <BreadcrumbItem><Link to='/'><b>Nhân viên</b></Link></BreadcrumbItem>
-                    <BreadcrumbItem active><b>{props.staff.name}</b></BreadcrumbItem>
-                </Breadcrumb>
-                <RenderStaff updateStaff={props.updateStaff} history={history} deleteStaff={props.deleteStaff} staff={props.staff} department={props.departments.find((department) => department.id === props.staff.departmentId)} />
-
+    if(props.staff===undefined ){
+        return(
+            <div className='container pt-3'>
+                <Alert  color='success'>Đã xóa thành công</Alert>
+                <Link to='/staff'><Button color='info' size='lg'><i class="fa fa-angle-double-left fa-lg"  aria-hidden="true"></i> Về trang chủ</Button></Link>
             </div>
-        </div>
-
-    );
+        );
+    }else{
+        return (
+            <div style={{ padding: '2vw' }}>
+                <div className="row " >
+                    <Breadcrumb className='col-md-12'>
+                        <BreadcrumbItem><Link to='/'><b>Nhân viên</b></Link></BreadcrumbItem>
+                        <BreadcrumbItem active><b>{props.staff.name}</b></BreadcrumbItem>
+                    </Breadcrumb>
+                    <RenderStaff updateStaff={props.updateStaff} history={history} deleteStaff={props.deleteStaff} staff={props.staff} department={props.departments.find((department) => department.id === props.staff.departmentId)} />
+    
+                </div>
+            </div>
+    
+        );
+        
+        
+    }
+    
 }
 
 export default StaffDetail;
