@@ -44,8 +44,8 @@ function RenderStaffList({ staffs, isLoading, errMess }) {
 
     if (isLoading) {
         return (
-            <div className="row pt-4" >             
-                    <Loading />
+            <div className="row pt-4" >
+                <Loading />
             </div>
 
         )
@@ -58,7 +58,7 @@ function RenderStaffList({ staffs, isLoading, errMess }) {
                     <Alert color="danger">
                         {errMess}
                     </Alert>
-                    
+
                 </div>
             </div>
 

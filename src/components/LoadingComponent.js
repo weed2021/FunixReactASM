@@ -1,10 +1,10 @@
 import React from 'react';
+import { Spinner } from 'reactstrap';
 
-export const Loading = () =>{
+export const Loading = () => {
     return (
-        <div className="col-12">
-            <span className="fa fa-spinner fa-pulse fa-3x fa-fw text-primary"></span>
-            <p>Loading . . .</p>
+        <div className="col-12 text-center">
+            <Spinner style={{ width: '20vw', height: '20vw' }} size='lg' color="info" />
         </div>
     )
 }

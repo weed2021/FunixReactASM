@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import { Card, CardHeader, CardFooter, CardBody, Table, Breadcrumb, BreadcrumbItem, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import {
+    Card, CardHeader, CardFooter, CardBody,
+    Table, Breadcrumb, BreadcrumbItem, Dropdown, DropdownToggle,
+    DropdownMenu, DropdownItem, Alert
+} from 'reactstrap';
 import { Link } from "react-router-dom";
+import { Loading } from "./LoadingComponent";
 
 
-
-function RenderSalaryTable({ staffs }) {
+function RenderSalaryTable({ staffs, isLoading, errMess }) {
+    console.log(errMess);
     const employees = staffs.map((staff) => {
-        
         return (
             <div key={staff.id} className="col-12 col-sm-6 col-md-4  p-4">
                 <Card>
@@ -44,19 +48,44 @@ function RenderSalaryTable({ staffs }) {
                 </Card>
             </div>
         );
-        
+
     })
 
-    return (
-        <React.Fragment>
-
-            <div className="row" style={{ padding: '0 2vw' }}>
-                {employees}
+    if (isLoading) {
+        return (
+            <div className="row pt-4" >
+                <Loading />
             </div>
 
-        </React.Fragment>
+        )
+    }
+    else if (errMess) {
+        // console.log(JSON.stringify(errMess))
+        return (
+            <div className="row pt-4" >
+                <div className="col-12 ">
+                    <Alert color="danger">
+                        {errMess}
+                    </Alert>
 
-    );
+                </div>
+            </div>
+
+        );
+    } else {
+        return (
+            <React.Fragment>
+
+                <div className="row" style={{ padding: '0 2vw' }}>
+                    {employees}
+                </div>
+
+            </React.Fragment>
+
+        );
+    }
+
+
 }
 
 
@@ -86,7 +115,7 @@ const Salary = (props) => {
                     </DropdownMenu>
                 </Dropdown>
             </div>
-            <RenderSalaryTable staffs={props.staffsSalary} />
+            <RenderSalaryTable isLoading={props.salaryLoading} errMess={props.salaryErrMess} staffs={props.staffsSalary} />
         </div>
     );
 

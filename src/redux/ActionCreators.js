@@ -3,6 +3,7 @@ import { baseURL } from '../shared/baseURL'
 
 
 export const updateStaff = (staff) => dispatch => {
+    dispatch(staffsLoading())
     return fetch(baseURL + 'staffs', {
         method: 'PATCH',
         headers: {
@@ -23,6 +24,7 @@ export const addStaff = (staff) => ({
 })
 
 export const deleteStaff = (staffId) => dispatch => {
+    dispatch(staffsLoading())
     return fetch(baseURL + 'staffs/' + staffId, {
         method: "DELETE",
         headers: {
@@ -37,7 +39,7 @@ export const deleteStaff = (staffId) => dispatch => {
 
 
 export const postStaff = (staff) => dispatch => {
-
+    dispatch(staffsLoading())
     return fetch(baseURL + 'staffs', {
         method: "POST",
         body: JSON.stringify(staff),
@@ -47,14 +49,29 @@ export const postStaff = (staff) => dispatch => {
         credentials: 'same-origin'
 
     })
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => {
+                var errMess = new Error(error.message);
+                throw errMess;
+            })
+
         .then(response => response.json())
         .then(staff => dispatch(addStaff(staff)))
+        .catch(error => dispatch(staffsFailed(error.message)))
 
 }
 
 export const fetchStaffs = () => dispatch => {
     dispatch(staffsLoading())
-    
+
     return fetch(baseURL + 'staffs')
         .then(response => {
             if (response.ok) {
@@ -93,8 +110,23 @@ export const staffsFailed = (errMess) => ({
 export const fetchDepartments = () => dispatch => {
     dispatch(departmentsLoading());
     return fetch(baseURL + 'departments')
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => {
+                var errMess = new Error(error.message);
+                throw errMess;
+            })
+
         .then(response => response.json())
         .then(departments => dispatch(addDepartments(departments)))
+        .catch(error => dispatch(departmentsFailed(error.message)))
 }
 
 export const addDepartments = (departments) => ({
@@ -114,8 +146,24 @@ export const departmentsFailed = (errMess) => ({
 export const fetchStaffsSalary = () => dispatch => {
     dispatch(salaryLoading());
     return fetch(baseURL + 'staffsSalary')
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => {
+                var errMess = new Error(error.message);
+                throw errMess;
+            })
+
         .then(response => response.json())
         .then(staffsSalary => dispatch(addStaffsSalary(staffsSalary)))
+        .catch(error => dispatch(salaryFailed(error.message)))
+
 }
 
 export const addStaffsSalary = (staffsSalary) => ({

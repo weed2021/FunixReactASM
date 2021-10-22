@@ -75,7 +75,7 @@ class Footer extends Component {
                             <h6 className="text-uppercase font-weight-bold mb-4">
                                 <i className="fa fa-graduation-cap me-3"></i> Funix education
                             </h6>
-                            <p className='text-justify'> 
+                            <p className='text-justify'>
                                 Bài Assignment 02 môn React JS của học viên <strong>Quân Lê Bá</strong>.
                                 Mã số  FX12493 hiện đang học khóa Doanh nghiệp tài trợ của FUNIX
                             </p>
@@ -89,21 +89,21 @@ class Footer extends Component {
                                 PAGES
                             </h6>
                             <p>
-                            <Link to='/staff' className="text-reset">
-                                Nhân viên
-                            </Link>  
+                                <Link to='/staff' className="text-reset">
+                                    Nhân viên
+                                </Link>
                             </p>
                             <p>
-                            <Link to='/department' className="text-reset">
-                                Phòng ban
-                            </Link> 
+                                <Link to='/department' className="text-reset">
+                                    Phòng ban
+                                </Link>
                             </p>
                             <p>
-                            <Link to='/salary' className="text-reset">
-                                Bảng lương
-                            </Link> 
+                                <Link to='/salary' className="text-reset">
+                                    Bảng lương
+                                </Link>
                             </p>
-                            
+
                         </div>
 
 
@@ -123,7 +123,7 @@ class Footer extends Component {
                                 info@funix.edu.vn
                             </p>
                             <p><i className="fa fa-phone me-3"></i> +84 782313602 (Zalo, Viber)</p>
-                            
+
                         </div>
 
                     </div>

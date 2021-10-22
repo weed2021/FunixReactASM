@@ -1,4 +1,4 @@
-import { createStore,combineReducers,applyMiddleware } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
 
 import { Staffs } from "./staffsReducer";
 import { Departments } from "./departmentsReducer";
@@ -14,8 +14,8 @@ export const ConfigureStore = () => {
             departments: Departments,
             staffsSalary: StaffsSalary
         }),
-        applyMiddleware(thunk,logger)
-        
+        applyMiddleware(thunk, logger)
+
     );
     return store;
 }

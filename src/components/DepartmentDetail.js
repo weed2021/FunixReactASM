@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardHeader, CardImg, Breadcrumb, BreadcrumbItem } from "reactstrap";
-
+import { Loading } from "./LoadingComponent";
 import { Link } from "react-router-dom";
 
 function RenderStaffs({ staffs }) {
@@ -26,19 +26,29 @@ function RenderStaffs({ staffs }) {
 }
 
 const DepartmentDetail = (props) => {
-    return (
-        <div style={{ padding: '2vw' }}>
-            <div className="row " >
-                <Breadcrumb className='col-md-12'>
-                    <BreadcrumbItem><Link to='/department'><b>Phòng ban</b></Link></BreadcrumbItem>
-                    <BreadcrumbItem active><b>{props.department.name}</b></BreadcrumbItem>
-                </Breadcrumb>
-    
+    if (props.department === undefined) {
+        return (
+            <div className='container pt-3'>
+                <div className="row pt-4" >
+                    <Loading />
+                </div>
             </div>
-            <RenderStaffs staffs={props.staffs} />
-        </div>
+        );
+    } else {
+        return (
+            <div style={{ padding: '2vw' }}>
+                <div className="row " >
+                    <Breadcrumb className='col-md-12'>
+                        <BreadcrumbItem><Link to='/department'><b>Phòng ban</b></Link></BreadcrumbItem>
+                        <BreadcrumbItem active><b>{props.department.name}</b></BreadcrumbItem>
+                    </Breadcrumb>
 
-    );
+                </div>
+                <RenderStaffs staffs={props.staffs} />
+            </div>
+
+        );
+    }
 }
 
 export default DepartmentDetail;

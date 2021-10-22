@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-
 import StaffList from './StaffListComponent';
-
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Salary from './SalaryComponent';
 import DepartmentList from './DepartmentListComponent';
 import DepartmentDetail from './DepartmentDetail';
 import StaffDetail from "./StaffDetailComponent";
+
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { postStaff, fetchStaffs, fetchDepartments, fetchStaffsSalary, deleteStaff, updateStaff } from '../redux/ActionCreators';
@@ -40,15 +39,15 @@ class Main extends Component {
 
   render() {
     const StaffWithId = ({ match }) => {
-      
+
       return (
         <StaffDetail
           staff={this.props.staffs.staffs.find((staff) => staff.id === parseInt(match.params.staffId))}
-          staffsLoading = {this.props.staffs.isLoading}
-          staffsErrMess = {this.props.staffs.errMess}
+          staffsLoading={this.props.staffs.isLoading}
+          staffsErrMess={this.props.staffs.errMess}
           departments={this.props.departments.departments}
-          departmentsLoaing = {this.props.departments.isLoading}
-          departmentsErrMess = {this.props.departments.errMess}
+          departmentsLoading={this.props.departments.isLoading}
+          departmentsErrMess={this.props.departments.errMess}
           deleteStaff={this.props.deleteStaff}
           updateStaff={this.props.updateStaff}
         />
@@ -61,11 +60,11 @@ class Main extends Component {
       return (
         <DepartmentDetail
           staffs={this.props.staffs.staffs.filter((staff) => staff.departmentId === match.params.departmentId)}
-          staffsLoading = {this.props.staffs.isLoading}
-          staffsErrMess = {this.props.staffs.errMess} 
+          staffsLoading={this.props.staffs.isLoading}
+          staffsErrMess={this.props.staffs.errMess}
           department={this.props.departments.departments.find((department) => department.id === match.params.departmentId)}
-          departmentsLoaing = {this.props.departments.isLoading}
-          departmentsErrMess = {this.props.departments.errMess}
+          departmentsLoading={this.props.departments.isLoading}
+          departmentsErrMess={this.props.departments.errMess}
         />
       );
     }
@@ -77,10 +76,10 @@ class Main extends Component {
         <TransitionGroup>
           <CSSTransition key={this.props.location.key} classNames='page' timeout={500}>
             <Switch location={this.props.location}>
-              <Route exact path='/staff' component={() => <StaffList postStaff={this.props.postStaff} staffsLoading = {this.props.staffs.isLoading} staffsErrMess = {this.props.staffs.errMess}/>} />
-              <Route path='/salary' component={() => <Salary staffsSalary={this.props.staffsSalary.staffsSalary} />} />
+              <Route exact path='/staff' component={() => <StaffList postStaff={this.props.postStaff} staffsLoading={this.props.staffs.isLoading} staffsErrMess={this.props.staffs.errMess} />} />
+              <Route path='/salary' component={() => <Salary staffsSalary={this.props.staffsSalary.staffsSalary} salaryLoading={this.props.staffsSalary.isLoading} salaryErrMess={this.props.staffsSalary.errMess} />} />
               <Route path='/staff/:staffId' component={StaffWithId} />
-              <Route exact path='/department' component={() => <DepartmentList departments={this.props.departments.departments} />} />
+              <Route exact path='/department' component={() => <DepartmentList departmentsLoading={this.props.departments.isLoading} departmentsErrMess={this.props.departments.errMess} departments={this.props.departments.departments} />} />
               <Route path='/department/:departmentId' component={DepartmentWithId} />
               <Redirect to='/staff' />
             </Switch>

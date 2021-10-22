@@ -1,5 +1,4 @@
 import * as ActionTypes from './ActionTypes';
-import { STAFFS } from '../shared/staffs'
 
 export const Staffs = (state = {
     isLoading: true,
@@ -8,7 +7,7 @@ export const Staffs = (state = {
 }, action) => {
     switch (action.type) {
         case ActionTypes.ADD_NEWSTAFF:
-            return { ...state, staffs: action.payload };
+            return { ...state, isLoading: false, errMess: null, staffs: action.payload };
         // return state.concat(action.payload);
         case ActionTypes.ADD_STAFFS:
             return { ...state, isLoading: false, errMess: null, staffs: action.payload };
